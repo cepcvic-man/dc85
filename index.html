@@ -1281,7 +1281,7 @@ function parseJSONDiag(t) {
   const a = trimmed.indexOf('{'), b = trimmed.lastIndexOf('}');
 
   if (a === -1 || b === -1) {
-    return { data: null, error: 'Nessun JSON trovato. Riprova usando il prompt fornito senza modifiche: l'AI deve rispondere SOLO con il blocco JSON.' };
+    return { data: null, error: "Nessun JSON trovato. Riprova usando il prompt fornito senza modifiche: l'AI deve rispondere SOLO con il blocco JSON." };
   }
 
   let parsed;
@@ -1293,11 +1293,11 @@ function parseJSONDiag(t) {
   }
 
   if (!parsed.righe) {
-    return { data: null, error: 'Chiave "righe" mancante. L'AI ha usato un formato diverso da quello atteso. Riprova con lo stesso prompt senza modifiche.' };
+    return { data: null, error: "Chiave \"righe\" mancante. L'AI ha usato un formato diverso da quello atteso. Riprova con lo stesso prompt senza modifiche." };
   }
 
   if (!Array.isArray(parsed.righe) || !parsed.righe.length) {
-    return { data: null, error: 'L'array "righe" è vuoto. Prova ad aggiungere più dettagli alla descrizione e specificare almeno 3 fasi nelle note per l'AI.' };
+    return { data: null, error: "L'array \"righe\" è vuoto. Prova ad aggiungere più dettagli alla descrizione e specificare almeno 3 fasi nelle note per l'AI." };
   }
 
   return { data: parsed, error: null };
@@ -1590,14 +1590,14 @@ function fmt(ts) {
 // ─── ESEMPIO ───────────────────────────────
 function caricaEsempio() {
   cur = {
-    nome: 'Esempio: Pulizia pavimenti',
-    descrizione: 'Pulizia dei pavimenti con macchinario lavasciuga',
-    noteIA: '',
+    nome: "Esempio: Pulizia pavimenti",
+    descrizione: "Pulizia dei pavimenti con macchinario lavasciuga",
+    noteIA: "",
     righe: [
-      { attivita: 'Preparazione area di lavoro', rischi: 'Scivolamento di terzi su pavimento bagnato', controlli: 'Posizionare cartelli "pavimento scivoloso" e delimitare l'area prima di iniziare' },
-      { attivita: 'Utilizzo del macchinario lavasciuga', rischi: 'Rischio elettrico da cavo danneggiato; contatto con parti in movimento', controlli: 'Verificare integrità del cavo e delle spazzole; indossare calzature antiscivolo' },
-      { attivita: 'Manipolazione dei detergenti', rischi: 'Irritazione cutanea e oculare da contatto con sostanze chimiche', controlli: 'Indossare guanti e occhiali protettivi; consultare la scheda di sicurezza del prodotto' },
-      { attivita: 'Rimessaggio e pulizia del macchinario', rischi: 'Scivolamento durante il trasporto; contaminazione del deposito', controlli: 'Scaricare il serbatoio prima del rimessaggio; pulire le spazzole a fine uso' },
+      { attivita: "Preparazione area di lavoro", rischi: "Scivolamento di terzi su pavimento bagnato", controlli: `Posizionare cartelli "pavimento scivoloso" e delimitare l'area prima di iniziare` },
+      { attivita: "Utilizzo del macchinario lavasciuga", rischi: "Rischio elettrico da cavo danneggiato; contatto con parti in movimento", controlli: "Verificare integrità del cavo e delle spazzole; indossare calzature antiscivolo" },
+      { attivita: "Manipolazione dei detergenti", rischi: "Irritazione cutanea e oculare da contatto con sostanze chimiche", controlli: "Indossare guanti e occhiali protettivi; consultare la scheda di sicurezza del prodotto" },
+      { attivita: "Rimessaggio e pulizia del macchinario", rischi: "Scivolamento durante il trasporto; contaminazione del deposito", controlli: "Scaricare il serbatoio prima del rimessaggio; pulire le spazzole a fine uso" },
     ],
     creata: Date.now(),
     modificata: Date.now()
