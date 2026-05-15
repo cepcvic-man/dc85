@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
 /* ══ M3 Expressive — Sage Tonal Palette ══ */
 :root {
@@ -21,15 +22,17 @@
   --md-secondary-container:    oklch(91% 0.028 145);
   --md-on-secondary-container: oklch(23% 0.042 145);
 
-  --md-surface:         oklch(98.5% 0.005 145);
-  --md-surface-variant: oklch(91.5% 0.022 145);
+  --md-surface:         oklch(96.5% 0.012 145);
+  --md-surface-raised:  oklch(98%   0.008 145);
+  --md-surface-soft:    oklch(93.5% 0.018 145);
+  --md-surface-variant: oklch(89.5% 0.026 145);
   --md-on-surface:      oklch(19%   0.017 145);
   --md-on-sv:           oklch(46%   0.028 145);
 
   --md-outline:         oklch(64% 0.026 145);
-  --md-outline-variant: oklch(83% 0.023 145);
+  --md-outline-variant: oklch(78% 0.027 145);
 
-  --md-background: oklch(97% 0.013 145);
+  --md-background: oklch(92.5% 0.024 145);
 
   --md-error:              oklch(50% 0.19 25);
   --md-error-container:    oklch(92% 0.06 25);
@@ -67,7 +70,8 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--md-background);
+  background:
+    linear-gradient(180deg, var(--md-surface-soft) 0, var(--md-background) 220px, var(--md-background) 100%);
   color: var(--md-on-surface);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -90,7 +94,8 @@ body {
 /* ── TOP APP BAR ── */
 .app-bar {
   position: sticky; top: 0; z-index: 10;
-  background: var(--md-surface);
+  background: oklch(94.5% 0.018 145 / 0.94);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--md-outline-variant);
   padding: 0 16px;
   height: 64px;
@@ -204,31 +209,38 @@ body {
 .fab {
   position: fixed; bottom: 24px; right: 24px; z-index: 20;
   display: flex; align-items: center; gap: 10px;
-  background: var(--md-primary-container);
-  color: var(--md-on-primary-container);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
   border: none; cursor: pointer;
   border-radius: var(--shape-lg);
-  padding: 16px 20px;
-  font-family: inherit; font-size: 0.875rem; font-weight: 600;
+  padding: 16px 22px;
+  font-family: inherit; font-size: 0.9rem; font-weight: 700;
   letter-spacing: 0.006em;
-  box-shadow: var(--elev-3);
+  box-shadow:
+    0 6px 18px oklch(34% 0.08 145 / 0.24),
+    0 2px 6px oklch(34% 0.08 145 / 0.18);
   position: fixed; overflow: hidden;
   transition: box-shadow var(--dur-med) var(--motion-std),
               transform var(--dur-med) var(--motion-std);
 }
 .fab::before {
   content: ''; position: absolute; inset: 0;
-  background: var(--md-on-primary-container);
+  background: var(--md-on-primary);
   opacity: 0; transition: opacity var(--dur-short) var(--motion-std);
 }
-.fab:hover { box-shadow: var(--elev-3); transform: translateY(-2px); }
+.fab:hover {
+  box-shadow:
+    0 10px 24px oklch(34% 0.08 145 / 0.28),
+    0 3px 8px oklch(34% 0.08 145 / 0.20);
+  transform: translateY(-2px);
+}
 .fab:hover::before { opacity: 0.08; }
 .fab:active { transform: scale(0.97); }
-.fab-icon { font-size: 1.25rem; }
+.fab-icon { font-size: 1rem; display: inline-flex; }
 
 /* ── M3 CARDS ── */
 .card-elevated {
-  background: var(--md-surface);
+  background: var(--md-surface-raised);
   border-radius: var(--shape-md);
   box-shadow: var(--elev-1);
   overflow: hidden;
@@ -249,7 +261,8 @@ body {
 
 /* ── SCHEDA LIST ITEM ── */
 .scheda-item {
-  background: var(--md-surface);
+  background: var(--md-surface-raised);
+  border: 1px solid oklch(85% 0.022 145);
   border-radius: var(--shape-md);
   box-shadow: var(--elev-1);
   display: flex; align-items: center;
@@ -292,9 +305,50 @@ body {
   font-size: 0.73rem; font-weight: 500;
 }
 .scheda-actions {
-  display: flex; gap: 4px; align-items: center;
+  display: flex; gap: 6px; align-items: center;
   padding: 8px 12px 8px 0; flex-shrink: 0;
 }
+.scheda-action {
+  width: 38px; height: 38px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--md-outline-variant);
+  background: oklch(96% 0.012 145);
+  color: var(--md-on-sv);
+  border-radius: var(--shape-full);
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  font-size: 0.9rem;
+  transition:
+    background var(--dur-short) var(--motion-std),
+    border-color var(--dur-short) var(--motion-std),
+    color var(--dur-short) var(--motion-std),
+    transform var(--dur-short) var(--motion-std),
+    box-shadow var(--dur-short) var(--motion-std);
+}
+.scheda-action:hover {
+  background: var(--md-secondary-container);
+  border-color: transparent;
+  color: var(--md-on-secondary-container);
+  box-shadow: var(--elev-1);
+  transform: translateY(-1px);
+}
+.scheda-action:active { transform: scale(0.96); }
+.scheda-action:focus-visible { outline: 3px solid var(--md-primary); outline-offset: 2px; }
+.scheda-action-print {
+  background: var(--md-primary-container);
+  border-color: transparent;
+  color: var(--md-on-primary-container);
+}
+.scheda-action-print:hover {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+}
+.scheda-action-delete { color: var(--md-error); }
+.scheda-action-delete:hover {
+  background: var(--md-error-container);
+  color: var(--md-on-error-container);
+}
+.scheda-action i { pointer-events: none; }
 
 /* ── EMPTY STATE ── */
 .empty-state {
@@ -302,7 +356,7 @@ body {
   padding: 80px 28px 64px;
   border-radius: var(--shape-xl);
   border: 2px dashed var(--md-outline-variant);
-  background: var(--md-surface);
+  background: var(--md-surface-raised);
 }
 .empty-icon-wrap {
   width: 72px; height: 72px; margin: 0 auto 24px;
@@ -316,7 +370,7 @@ body {
 
 /* ── STEP CARD ── */
 .step-card {
-  background: var(--md-surface);
+  background: var(--md-surface-raised);
   border-radius: var(--shape-lg);
   box-shadow: var(--elev-1);
   margin-bottom: 16px;
@@ -568,7 +622,7 @@ body {
   </div>
 
   <button class="fab no-print" onclick="apriNuova()">
-    <span class="fab-icon">＋</span>
+    <span class="fab-icon"><i class="fa-solid fa-plus" aria-hidden="true"></i></span>
     <span>Nuova scheda</span>
   </button>
 </div>
@@ -576,7 +630,9 @@ body {
 <!-- ══════ EDITOR ══════ -->
 <div id="p-editor" class="pagina">
   <div class="app-bar no-print">
-    <button class="icon-btn" onclick="tornaHome()" title="Indietro">←</button>
+    <button class="icon-btn" onclick="tornaHome()" title="Indietro" aria-label="Indietro">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    </button>
     <span class="app-bar-title" id="editor-title">Nuova scheda</span>
   </div>
   <div class="page-content">
@@ -619,7 +675,10 @@ body {
           o <strong style="color:var(--md-on-surface)">Gemini</strong>. Invia e attendi la risposta.
         </p>
         <div id="prompt-box" class="prompt-box">Scrivi prima la descrizione al punto 1…</div>
-        <button class="btn btn-tonal" id="btn-copia" onclick="copiaPrompt()">📋 Copia testo</button>
+        <button class="btn btn-tonal" id="btn-copia" onclick="copiaPrompt()">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i>
+          <span>Copia testo</span>
+        </button>
         <p class="helper">Dopo aver copiato, apri ChatGPT o Gemini, incolla e invia. Poi torna qui con la risposta.</p>
       </div>
     </div>
@@ -636,7 +695,10 @@ body {
           <textarea class="field-textarea" id="f-risposta" rows="8"
             placeholder="Incolla qui la risposta di ChatGPT o Gemini…"></textarea>
         </div>
-        <button class="btn btn-filled" onclick="caricaRisposta()">✓ Carica dati</button>
+        <button class="btn btn-filled" onclick="caricaRisposta()">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <span>Carica dati</span>
+        </button>
         <div id="msg-errore" class="msg msg-error">
           <span class="msg-icon">⚠</span>
           <span>Non riesco a leggere la risposta. Prova a chiedere all'AI di rispondere di nuovo: a volte basta ricopiare il testo per intero.</span>
@@ -652,7 +714,7 @@ body {
       </div>
       <div class="step-body">
         <p class="body-md" style="color:var(--md-on-sv); margin-bottom:16px; line-height:1.6">
-          Puoi modificare ogni cella. Usa <strong style="color:var(--md-on-surface)">+ Aggiungi riga</strong> se mancano fasi.
+          Puoi modificare ogni cella. Usa <strong style="color:var(--md-on-surface)">Aggiungi riga</strong> se mancano fasi.
         </p>
         <div class="table-wrap" style="overflow-x:auto">
           <table class="editor-table">
@@ -672,7 +734,10 @@ body {
           <span>Hai più di 5 righe: il documento verrà diviso su più pagine in gruppi di 5.</span>
         </div>
         <div style="margin-top:14px">
-          <button class="btn btn-outlined btn-sm" onclick="addRow()">+ Aggiungi riga</button>
+          <button class="btn btn-outlined btn-sm" onclick="addRow()">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span>Aggiungi riga</span>
+          </button>
         </div>
       </div>
     </div>
@@ -689,8 +754,14 @@ body {
           <span>Scheda salvata. Puoi stamparla o chiudere.</span>
         </div>
         <div class="btn-group">
-          <button class="btn btn-outlined" style="flex:1; justify-content:center" onclick="salva()">💾 Salva scheda</button>
-          <button class="btn btn-filled"   style="flex:1; justify-content:center" onclick="generaPDF()">📄 Scarica PDF DC-85</button>
+          <button class="btn btn-outlined" style="flex:1; justify-content:center" onclick="salva()">
+            <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+            <span>Salva scheda</span>
+          </button>
+          <button class="btn btn-filled"   style="flex:1; justify-content:center" onclick="generaPDF()">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            <span>Scarica PDF DC-85</span>
+          </button>
         </div>
       </div>
     </div>
@@ -701,10 +772,15 @@ body {
 <!-- ══════ STAMPA ══════ -->
 <div id="p-stampa" class="pagina">
   <div class="app-bar no-print">
-    <button class="icon-btn" onclick="tornaEditor()" title="Torna all'editor">←</button>
+    <button class="icon-btn" onclick="tornaEditor()" title="Torna all'editor" aria-label="Torna all'editor">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    </button>
     <span class="app-bar-title">Anteprima stampa</span>
     <span class="app-bar-spacer"></span>
-    <button class="btn btn-filled btn-sm no-print" onclick="generaPDF()">📄 Scarica PDF</button>
+    <button class="btn btn-filled btn-sm no-print" onclick="generaPDF()">
+      <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+      <span>Scarica PDF</span>
+    </button>
   </div>
   <div class="page-content">
     <div class="print-info no-print">
@@ -849,9 +925,9 @@ async function dbGet(id) {
 let cur = null;
 const PDF_FIELD_LIMITS = {
   descrizione: 70,
-  attivita: 90,
-  rischi: 90,
-  controlli: 90
+  attivita: 105,
+  rischi: 105,
+  controlli: 105
 };
 
 // ─── NAV ───────────────────────────────────
@@ -876,10 +952,13 @@ async function caricaLista() {
   if (!lista.length) {
     el.innerHTML = `
       <div class="empty-state">
-        <div class="empty-icon-wrap">📋</div>
+        <div class="empty-icon-wrap"><i class="fa-regular fa-clipboard" aria-hidden="true"></i></div>
         <h2>Nessuna scheda</h2>
         <p>Crea la prima scheda DC-85 con l'aiuto dell'intelligenza artificiale in pochi minuti.</p>
-        <button class="btn btn-filled" onclick="apriNuova()">+ Crea prima scheda</button>
+        <button class="btn btn-filled" onclick="apriNuova()">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          <span>Crea prima scheda</span>
+        </button>
       </div>`;
     return;
   }
@@ -896,9 +975,15 @@ async function caricaLista() {
         </div>
       </div>
       <div class="scheda-actions">
-        <button class="btn btn-outlined btn-sm" onclick="apriScheda('${encodeURIComponent(s.id)}')">✏️ Modifica</button>
-        <button class="btn btn-tonal   btn-sm" onclick="stampaDiretta('${encodeURIComponent(s.id)}')">🖨</button>
-        <button class="btn btn-danger  btn-sm" onclick="elimina('${encodeURIComponent(s.id)}','${encodeURIComponent(s.nome)}')">🗑</button>
+        <button class="scheda-action" onclick="apriScheda('${encodeURIComponent(s.id)}')" title="Modifica" aria-label="Modifica ${escAttr(s.nome)}">
+          <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+        </button>
+        <button class="scheda-action scheda-action-print" onclick="stampaDiretta('${encodeURIComponent(s.id)}')" title="Scarica PDF" aria-label="Scarica PDF ${escAttr(s.nome)}">
+          <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+        </button>
+        <button class="scheda-action scheda-action-delete" onclick="elimina('${encodeURIComponent(s.id)}','${encodeURIComponent(s.nome)}')" title="Elimina" aria-label="Elimina ${escAttr(s.nome)}">
+          <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+        </button>
       </div>
     </div>`).join('');
 }
@@ -995,8 +1080,10 @@ Regole:
   - "attivita": massimo ${PDF_FIELD_LIMITS.attivita} caratteri per riga
   - "rischi": massimo ${PDF_FIELD_LIMITS.rischi} caratteri per riga
   - "controlli": massimo ${PDF_FIELD_LIMITS.controlli} caratteri per riga
-- Ogni cella deve restare su 1 o 2 frasi brevi; evita di riempire completamente la casella
+- Scrivi voci concrete e complete, non troppo telegrafiche: ogni cella deve spiegare bene cosa fare o quale rischio considerare
+- Usa 1 frase completa per cella; se serve, 2 frasi molto brevi
 - Non usare elenchi puntati, parentesi lunghe, punto e virgola ripetuti o ritorni a capo nelle celle
+- Copri tutte le fasi significative dell'attività, senza accorpare passaggi diversi solo per brevità
 - Per ogni fase indica rischi concreti e misure di prevenzione pratiche
 - Scrivi in italiano, in modo chiaro e diretto
 - Non aggiungere spiegazioni fuori dal JSON`;
@@ -1008,8 +1095,10 @@ async function copiaPrompt() {
   const btn = document.getElementById('btn-copia');
   try {
     await navigator.clipboard.writeText(t);
-    btn.textContent = '✓ Copiato!';
-    setTimeout(() => btn.textContent = '📋 Copia testo', 2500);
+    btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i><span>Copiato</span>';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copia testo</span>';
+    }, 2500);
   } catch {
     alert('Seleziona il testo nel riquadro grigio e copialo manualmente (Ctrl+C / Cmd+C).');
   }
@@ -1061,7 +1150,7 @@ function addRowData(r) {
     <td><textarea maxlength="${PDF_FIELD_LIMITS.attivita}" placeholder="Fase o operazione…">${esc(r.attivita||'')}</textarea></td>
     <td><textarea maxlength="${PDF_FIELD_LIMITS.rischi}" placeholder="Rischi specifici…">${esc(r.rischi||'')}</textarea></td>
     <td><textarea maxlength="${PDF_FIELD_LIMITS.controlli}" placeholder="Misure preventive…">${esc(r.controlli||'')}</textarea></td>
-    <td class="col-del"><button class="del-btn" onclick="this.closest('tr').remove();checkOverflow()" title="Rimuovi riga">✕</button></td>`;
+    <td class="col-del"><button class="del-btn" onclick="this.closest('tr').remove();checkOverflow()" title="Rimuovi riga" aria-label="Rimuovi riga"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>`;
   tb.appendChild(tr);
 }
 
@@ -1296,6 +1385,9 @@ function apriStampa() {
 // ─── UTILS ─────────────────────────────────
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return esc(s).replace(/'/g,'&#39;');
 }
 function fmt(ts) {
   return ts ? new Date(ts).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}) : '';
