@@ -254,8 +254,6 @@ body {
   border: 1.5px solid var(--md-outline-variant);
   border-radius: var(--shape-md);
   box-shadow: var(--elev-1);
-  display: flex; align-items: center;
-  gap: 0;
   overflow: hidden;
   transition: box-shadow var(--dur-med) var(--motion-std),
               transform   var(--dur-med) var(--motion-std);
@@ -264,16 +262,41 @@ body {
 .scheda-item:hover { box-shadow: var(--elev-2); transform: translateY(-2px); }
 
 /* Side accent collapsed — card surface carries the identity */
-.scheda-accent { display: none; }
 
 .scheda-body {
-  flex: 1; padding: 16px 18px;
-  min-width: 0;
+  padding: 18px 20px 14px;
+}
+
+.scheda-row-top {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 6px;
+}
+
+.scheda-desc {
+  font-size: 0.85rem; font-weight: 400;
+  color: var(--md-on-sv);
+  line-height: 1.45;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 14px;
+}
+
+.scheda-row-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--md-outline-variant);
+  padding-top: 10px;
+}
+
+.scheda-date {
+  font-size: 0.70rem; font-weight: 400;
+  color: var(--md-on-sv);
+  letter-spacing: 0.018em;
 }
 .scheda-name {
-  font-size: 0.95rem; font-weight: 700;
-  color: var(--md-on-surface); margin-bottom: 5px;
-  letter-spacing: -0.010em;
+  font-size: 1rem; font-weight: 700;
+  color: var(--md-on-surface);
+  letter-spacing: -0.012em;
+  flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .scheda-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .chip {
@@ -285,8 +308,7 @@ body {
   font-size: 0.73rem; font-weight: 600;
 }
 .scheda-actions {
-  display: flex; gap: 6px; align-items: center;
-  padding: 10px 14px 10px 0; flex-shrink: 0;
+  display: flex; gap: 4px; align-items: center;
 }
 .scheda-action {
   width: 40px; height: 40px;
@@ -586,8 +608,8 @@ body {
 @media (max-width: 600px) {
   .page-content { padding: 18px 14px 104px; }
   .step-body { padding: 18px; }
-  .scheda-item { flex-wrap: wrap; }
-  .scheda-actions { padding: 0 14px 14px; width: 100%; justify-content: flex-end; }
+  .scheda-row-foot { flex-wrap: wrap; gap: 8px; }
+  .empty-state { padding-bottom: 112px; }
   .dc85-head-row { flex-direction: column; }
   .dc85-logo { border-right: none; border-bottom: 1.5px solid #111; }
   .dc85-code { text-align: left; border-top: 1.5px solid #111; padding-left: 13px; }
@@ -606,6 +628,83 @@ body {
   @page { margin: 14mm 12mm; size: A4 landscape; }
 }
 
+/* ── SNACKBAR ── */
+.snackbar {
+  position: fixed;
+  bottom: 92px; left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--md-on-surface);
+  color: var(--md-surface-raised);
+  border-radius: var(--shape-full);
+  padding: 13px 22px;
+  font-size: 0.875rem; font-weight: 500;
+  display: flex; align-items: center; gap: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-med) var(--motion-std),
+              transform  var(--dur-med) var(--motion-std);
+  z-index: 40;
+  box-shadow: var(--elev-3);
+  white-space: nowrap;
+  max-width: calc(100vw - 40px);
+}
+.snackbar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.snackbar-action {
+  background: none; border: none; cursor: pointer;
+  color: oklch(88% 0.085 264);
+  font-family: inherit; font-size: 0.875rem; font-weight: 700;
+  padding: 0; letter-spacing: 0.01em;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* ── TOOLTIP ── */
+.field-label-wrap { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+.field-label-wrap .field-label { margin-bottom: 0; }
+.tip {
+  display: inline-flex;
+  width: 17px; height: 17px;
+  align-items: center; justify-content: center;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-radius: var(--shape-full);
+  font-size: 0.63rem; font-weight: 800;
+  cursor: default; flex-shrink: 0;
+  position: relative;
+}
+.tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%; transform: translateX(-50%);
+  background: var(--md-on-surface);
+  color: var(--md-surface);
+  border-radius: var(--shape-sm);
+  padding: 8px 12px;
+  font-size: 0.73rem; font-weight: 400;
+  line-height: 1.45; letter-spacing: 0; text-transform: none;
+  white-space: normal; width: 220px;
+  box-shadow: var(--elev-2);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-short) var(--motion-std);
+  z-index: 100; text-align: left;
+}
+.tip:hover::after { opacity: 1; }
+th .tip::after { bottom: auto; top: calc(100% + 8px); }
+
+/* ── EDITOR STEP COUNTER ── */
+.editor-step-counter {
+  font-size: 0.70rem; font-weight: 600;
+  color: var(--md-on-sv);
+  background: var(--md-surface-variant);
+  border-radius: var(--shape-full);
+  padding: 3px 10px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 </style>
 </head>
 <body>
@@ -613,15 +712,13 @@ body {
 <!-- ══════ HOME ══════ -->
 <div id="p-home" class="pagina attiva">
   <div class="app-bar no-print">
-    <span class="app-bar-title">DC-85</span>
+    <div class="app-bar-brand"><span class="app-bar-code">DC</span><span class="app-bar-num">85</span></div>
     <span class="app-bar-spacer"></span>
   </div>
   <div class="page-content">
-    <div style="margin-bottom:24px; display:flex; align-items:baseline; gap:12px; justify-content:space-between;">
-      <div>
-        <div class="headline-md" style="color:var(--md-on-surface); margin-bottom:4px;">Le tue schede</div>
-        <div id="home-sub" class="body-md" style="color:var(--md-on-sv)">Nessuna scheda ancora</div>
-      </div>
+    <div class="home-header">
+      <h1 class="home-title">Le tue schede</h1>
+      <p class="home-sub" id="home-sub">Nessuna scheda ancora</p>
     </div>
     <div id="lista"></div>
   </div>
@@ -639,6 +736,8 @@ body {
       <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
     </button>
     <span class="app-bar-title" id="editor-title">Nuova scheda</span>
+    <span class="app-bar-spacer"></span>
+    <span class="editor-step-counter" id="editor-step">Passaggi 1–3 di 5</span>
   </div>
   <div class="page-content">
 
@@ -650,17 +749,17 @@ body {
       </div>
       <div class="step-body">
         <div class="field">
-          <label class="field-label" for="f-nome">Nome per ritrovare questa scheda</label>
+          <div class="field-label-wrap"><label class="field-label" for="f-nome">Nome per ritrovare questa scheda</label><span class="tip" data-tip="Usato solo in questa app per trovare la scheda. Non appare nel documento PDF.">?</span></div>
           <input class="field-input" id="f-nome" type="text" placeholder="Es: Pulizia pavimenti, Utilizzo scala…">
         </div>
         <div class="field">
-          <label class="field-label" for="f-attivita">Descrizione dell'attività (apparirà nel documento)</label>
+          <div class="field-label-wrap"><label class="field-label" for="f-attivita">Descrizione dell'attività (apparirà nel documento)</label><span class="tip" data-tip="Appare nell'intestazione del DC-85. Max 70 caratteri. Esempio: Pulizia dei pavimenti con macchinario lavasciuga.">?</span></div>
           <input class="field-input" id="f-attivita" type="text" maxlength="70"
             placeholder="Es: Pulizia dei pavimenti con macchinario lavasciuga"
             oninput="aggiornPrompt()">
         </div>
         <div class="field">
-          <label class="field-label" for="f-note-ia">Note speciali per l'intelligenza artificiale</label>
+          <div class="field-label-wrap"><label class="field-label" for="f-note-ia">Note speciali per l'intelligenza artificiale</label><span class="tip" data-tip="Istruzioni aggiuntive per l'AI: limita il numero di fasi, esclude certi rischi, considera particolari categorie di lavoratori.">?</span></div>
           <textarea class="field-textarea" id="f-note-ia" rows="4"
             placeholder="Es: limita a 4 procedure; considera solo volontari non professionisti; evita DPI troppo specifici; includi istruzioni per lavori in quota"
             oninput="aggiornPrompt()"></textarea>
@@ -696,7 +795,7 @@ body {
       </div>
       <div class="step-body">
         <div class="field">
-          <label class="field-label" for="f-risposta">Copia tutta la risposta dell'intelligenza artificiale e incollala qui</label>
+          <div class="field-label-wrap"><label class="field-label" for="f-risposta">Copia tutta la risposta dell'intelligenza artificiale e incollala qui</label><span class="tip" data-tip="Copia tutta la risposta di ChatGPT/Gemini, incluso il blocco JSON. Non modificarla prima di incollarla.">?</span></div>
           <textarea class="field-textarea" id="f-risposta" rows="8"
             placeholder="Incolla qui la risposta di ChatGPT o Gemini…"></textarea>
         </div>
@@ -725,9 +824,9 @@ body {
           <table class="editor-table">
             <thead>
               <tr>
-                <th style="width:28%">Sequenza attività</th>
-                <th style="width:30%">Rischi</th>
-                <th style="width:36%">Metodi di controllo</th>
+                <th style="width:28%">Sequenza attività <span class="tip" data-tip="Ogni fase o operazione dell'attività, in ordine cronologico.">?</span></th>
+                <th style="width:30%">Rischi <span class="tip" data-tip="Pericoli specifici per questa fase: cadute, rischio elettrico, agenti chimici, ecc.">?</span></th>
+                <th style="width:36%">Metodi di controllo <span class="tip" data-tip="Misure preventive da adottare: DPI, procedure, verifiche prima dell'uso, ecc.">?</span></th>
                 <th style="width:40px"></th>
               </tr>
             </thead>
@@ -946,7 +1045,7 @@ function tornaEditor() { show('p-editor'); }
 
 // ─── HOME ──────────────────────────────────
 async function caricaLista() {
-  const lista = (await dbAll()).sort((a, b) => b.modificata - a.modificata);
+  const lista = (await dbAll()).sort((a, b) => b.modificata - a.modificata).filter(s => !_deletePending.has(s.id));
   const sub = document.getElementById('home-sub');
   const el  = document.getElementById('lista');
 
@@ -960,45 +1059,72 @@ async function caricaLista() {
         <div class="empty-icon-wrap"><i class="fa-regular fa-clipboard" aria-hidden="true"></i></div>
         <h2>Nessuna scheda</h2>
         <p>Crea la prima scheda DC-85 con l'aiuto dell'intelligenza artificiale in pochi minuti.</p>
-        <button class="btn btn-filled" onclick="apriNuova()">
-          <i class="fa-solid fa-plus" aria-hidden="true"></i>
-          <span>Crea prima scheda</span>
-        </button>
+        <div class="btn-group" style="justify-content:center">
+          <button class="btn btn-filled" onclick="apriNuova()">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span>Crea prima scheda</span>
+          </button>
+          <button class="btn btn-outlined" onclick="caricaEsempio()">
+            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+            <span>Vedi esempio</span>
+          </button>
+        </div>
       </div>`;
     return;
   }
 
   el.innerHTML = lista.map(s => `
     <div class="scheda-item">
-      <div class="scheda-accent"></div>
       <div class="scheda-body">
-        <div class="scheda-name">${esc(s.nome)}</div>
-        <div class="scheda-meta">
+        <div class="scheda-row-top">
+          <div class="scheda-name">${esc(s.nome)}</div>
           <span class="chip">${s.righe.length} ${s.righe.length === 1 ? 'fase' : 'fasi'}</span>
-          <span class="body-sm" style="color:var(--md-on-sv)">${esc(s.descrizione)}</span>
-          <span class="body-sm" style="color:var(--md-outline)">${fmt(s.modificata)}</span>
         </div>
-      </div>
-      <div class="scheda-actions">
-        <button class="scheda-action" onclick="apriScheda('${encodeURIComponent(s.id)}')" title="Modifica" aria-label="Modifica ${escAttr(s.nome)}">
-          <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-        </button>
-        <button class="scheda-action scheda-action-print" onclick="stampaDiretta('${encodeURIComponent(s.id)}')" title="Scarica PDF" aria-label="Scarica PDF ${escAttr(s.nome)}">
-          <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-        </button>
-        <button class="scheda-action scheda-action-delete" onclick="elimina('${encodeURIComponent(s.id)}','${encodeURIComponent(s.nome)}')" title="Elimina" aria-label="Elimina ${escAttr(s.nome)}">
-          <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-        </button>
+        ${s.descrizione ? `<div class="scheda-desc">${esc(s.descrizione)}</div>` : ''}
+        <div class="scheda-row-foot">
+          <span class="scheda-date">${fmt(s.modificata)}</span>
+          <div class="scheda-actions">
+            <button class="scheda-action" onclick="apriScheda('${encodeURIComponent(s.id)}')" title="Modifica" aria-label="Modifica ${escAttr(s.nome)}">
+              <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+            </button>
+            <button class="scheda-action scheda-action-print" onclick="stampaDiretta('${encodeURIComponent(s.id)}')" title="Scarica PDF" aria-label="Scarica PDF ${escAttr(s.nome)}">
+              <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            </button>
+            <button class="scheda-action scheda-action-delete" onclick="elimina('${encodeURIComponent(s.id)}','${encodeURIComponent(s.nome)}')" title="Elimina" aria-label="Elimina ${escAttr(s.nome)}">
+              <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>`).join('');
 }
 
 async function elimina(id, nome) {
-  id = decodeURIComponent(id);
+  id   = decodeURIComponent(id);
   nome = decodeURIComponent(nome);
-  if (!confirm(`Eliminare la scheda "${nome}"?\nNon si può annullare.`)) return;
-  await dbDel(id);
+
+  // Flush any previous pending delete for the same id
+  if (_deleteTimers[id]) {
+    clearTimeout(_deleteTimers[id]);
+    delete _deleteTimers[id];
+    _deletePending.delete(id);
+    await dbDel(id);
+  }
+
+  _deletePending.add(id);
   caricaLista();
+
+  mostraSnackbar(`"${nome}" eliminata`, 'Annulla', () => {
+    if (_deleteTimers[id]) { clearTimeout(_deleteTimers[id]); delete _deleteTimers[id]; }
+    _deletePending.delete(id);
+    caricaLista();
+  });
+
+  _deleteTimers[id] = setTimeout(async () => {
+    await dbDel(id);
+    _deletePending.delete(id);
+    delete _deleteTimers[id];
+  }, 5000);
 }
 
 // ─── EDITOR ────────────────────────────────
@@ -1028,6 +1154,8 @@ async function stampaDiretta(id) {
 
 function impostaEditor() {
   document.getElementById('editor-title').textContent = cur.id ? 'Modifica scheda' : 'Nuova scheda';
+  const _stepEl = document.getElementById('editor-step');
+  if (_stepEl) _stepEl.textContent = cur.righe?.length ? 'Tutti i passaggi' : 'Passaggi 1–3 di 5';
   document.getElementById('f-nome').value     = cur.nome        || '';
   document.getElementById('f-attivita').value = cur.descrizione || '';
   document.getElementById('f-note-ia').value = cur.noteIA || '';
@@ -1111,30 +1239,68 @@ async function copiaPrompt() {
 
 // ─── LOAD AI RESPONSE ──────────────────────
 function caricaRisposta() {
-  const raw  = document.getElementById('f-risposta').value.trim();
+  const raw   = document.getElementById('f-risposta').value.trim();
   const errEl = document.getElementById('msg-errore');
   errEl.classList.remove('show');
-  if (!raw) { errEl.classList.add('show'); return; }
 
-  const d = parseJSON(raw);
-  if (!d?.righe?.length) { errEl.classList.add('show'); return; }
+  if (!raw) {
+    errEl.innerHTML = `<span class="msg-icon">⚠</span><span>Incolla la risposta dell'AI prima di continuare.</span>`;
+    errEl.classList.add('show'); return;
+  }
+
+  const { data, error } = parseJSONDiag(raw);
+  if (!data?.righe?.length) {
+    const preview = raw.slice(0, 200).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    errEl.innerHTML = `
+      <span class="msg-icon" style="margin-top:2px"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i></span>
+      <div>
+        <strong style="display:block; margin-bottom:6px">${error}</strong>
+        <details style="font-size:0.78rem; opacity:0.85">
+          <summary style="cursor:pointer; user-select:none">Risposta ricevuta (espandi per vedere)</summary>
+          <code style="display:block; margin-top:6px; padding:6px 8px; background:oklch(0% 0 0 / 0.10); border-radius:6px; white-space:pre-wrap; word-break:break-all; font-size:0.72rem">${preview}${raw.length > 200 ? '…' : ''}</code>
+        </details>
+      </div>`;
+    errEl.classList.add('show'); return;
+  }
 
   const fa = document.getElementById('f-attivita');
   const fn = document.getElementById('f-nome');
-  if (d.descrizione && !fa.value.trim()) { fa.value = d.descrizione; aggiornPrompt(); }
-  if (d.descrizione && !fn.value.trim())   fn.value = d.descrizione;
+  if (data.descrizione && !fa.value.trim()) { fa.value = data.descrizione; aggiornPrompt(); }
+  if (data.descrizione && !fn.value.trim())   fn.value = data.descrizione;
 
-  fillTable(d.righe.map(limitRowText));
+  fillTable(data.righe.map(limitRowText));
   document.getElementById('sez-tabella').style.display = '';
   document.getElementById('sez-salva').style.display   = '';
+  const stepEl = document.getElementById('editor-step');
+  if (stepEl) stepEl.textContent = 'Tutti i passaggi';
   document.getElementById('sez-tabella').scrollIntoView({ behavior:'smooth' });
 }
 
-function parseJSON(t) {
-  t = t.replace(/^```[a-z]*\n?/m,'').replace(/```\s*$/m,'').trim();
-  const a = t.indexOf('{'), b = t.lastIndexOf('}');
-  if (a === -1 || b === -1) return null;
-  try { return JSON.parse(t.slice(a, b + 1)); } catch { return null; }
+function parseJSONDiag(t) {
+  const trimmed = t.replace(/^```[a-z]*\n?/m,'').replace(/```\s*$/m,'').trim();
+  const a = trimmed.indexOf('{'), b = trimmed.lastIndexOf('}');
+
+  if (a === -1 || b === -1) {
+    return { data: null, error: 'Nessun JSON trovato. Riprova usando il prompt fornito senza modifiche: l'AI deve rispondere SOLO con il blocco JSON.' };
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(trimmed.slice(a, b + 1));
+  } catch(e) {
+    const hint = String(e.message).slice(0, 100);
+    return { data: null, error: `JSON malformato: ${hint}. Richiedi di nuovo all'AI usando lo stesso prompt.` };
+  }
+
+  if (!parsed.righe) {
+    return { data: null, error: 'Chiave "righe" mancante. L'AI ha usato un formato diverso da quello atteso. Riprova con lo stesso prompt senza modifiche.' };
+  }
+
+  if (!Array.isArray(parsed.righe) || !parsed.righe.length) {
+    return { data: null, error: 'L'array "righe" è vuoto. Prova ad aggiungere più dettagli alla descrizione e specificare almeno 3 fasi nelle note per l'AI.' };
+  }
+
+  return { data: parsed, error: null };
 }
 
 // ─── TABLE ─────────────────────────────────
@@ -1157,6 +1323,29 @@ function addRowData(r) {
     <td><textarea maxlength="${PDF_FIELD_LIMITS.controlli}" placeholder="Misure preventive…">${esc(r.controlli||'')}</textarea></td>
     <td class="col-del"><button class="del-btn" onclick="this.closest('tr').remove();checkOverflow()" title="Rimuovi riga" aria-label="Rimuovi riga"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>`;
   tb.appendChild(tr);
+
+  // Tab navigation between cells
+  const _tas = tr.querySelectorAll('textarea');
+  _tas.forEach((ta, i) => {
+    ta.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const allRows = document.querySelectorAll('#tbody tr');
+      const rowIdx  = [...allRows].indexOf(tr);
+      if (!e.shiftKey) {
+        if (i < _tas.length - 1) { e.preventDefault(); _tas[i + 1].focus(); }
+        else {
+          const nxt = allRows[rowIdx + 1];
+          if (nxt) { e.preventDefault(); nxt.querySelector('textarea')?.focus(); }
+        }
+      } else {
+        if (i > 0) { e.preventDefault(); _tas[i - 1].focus(); }
+        else {
+          const prv = allRows[rowIdx - 1];
+          if (prv) { e.preventDefault(); const pt = prv.querySelectorAll('textarea'); pt[pt.length-1]?.focus(); }
+        }
+      }
+    });
+  });
 }
 
 function checkOverflow() {
@@ -1398,8 +1587,53 @@ function fmt(ts) {
   return ts ? new Date(ts).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}) : '';
 }
 
+// ─── ESEMPIO ───────────────────────────────
+function caricaEsempio() {
+  cur = {
+    nome: 'Esempio: Pulizia pavimenti',
+    descrizione: 'Pulizia dei pavimenti con macchinario lavasciuga',
+    noteIA: '',
+    righe: [
+      { attivita: 'Preparazione area di lavoro', rischi: 'Scivolamento di terzi su pavimento bagnato', controlli: 'Posizionare cartelli "pavimento scivoloso" e delimitare l'area prima di iniziare' },
+      { attivita: 'Utilizzo del macchinario lavasciuga', rischi: 'Rischio elettrico da cavo danneggiato; contatto con parti in movimento', controlli: 'Verificare integrità del cavo e delle spazzole; indossare calzature antiscivolo' },
+      { attivita: 'Manipolazione dei detergenti', rischi: 'Irritazione cutanea e oculare da contatto con sostanze chimiche', controlli: 'Indossare guanti e occhiali protettivi; consultare la scheda di sicurezza del prodotto' },
+      { attivita: 'Rimessaggio e pulizia del macchinario', rischi: 'Scivolamento durante il trasporto; contaminazione del deposito', controlli: 'Scaricare il serbatoio prima del rimessaggio; pulire le spazzole a fine uso' },
+    ],
+    creata: Date.now(),
+    modificata: Date.now()
+  };
+  impostaEditor();
+  show('p-editor');
+}
+
+// ─── SNACKBAR ──────────────────────────────
+const _deletePending = new Set();
+const _deleteTimers  = {};
+let   _snackTimer    = null;
+
+function mostraSnackbar(msg, label, onAction, ms = 5000) {
+  const sb    = document.getElementById('snackbar');
+  const msgEl = document.getElementById('snackbar-msg');
+  const btn   = document.getElementById('snackbar-btn');
+  if (_snackTimer) clearTimeout(_snackTimer);
+  msgEl.textContent = msg;
+  btn.textContent   = label;
+  btn.onclick = () => { nascondiSnackbar(); onAction(); };
+  sb.classList.add('show');
+  _snackTimer = setTimeout(nascondiSnackbar, ms);
+}
+
+function nascondiSnackbar() {
+  document.getElementById('snackbar').classList.remove('show');
+  if (_snackTimer) { clearTimeout(_snackTimer); _snackTimer = null; }
+}
+
 // ─── INIT ──────────────────────────────────
 apriLocalDB().then(caricaLista);
 </script>
+<div id="snackbar" class="snackbar" role="status" aria-live="polite">
+  <span id="snackbar-msg"></span>
+  <button id="snackbar-btn" class="snackbar-action"></button>
+</div>
 </body>
 </html>
