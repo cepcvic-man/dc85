@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schede DC-85</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap" rel="stylesheet">
+<style>
+/* ══ M3 Expressive — Sage Tonal Palette ══ */
+:root {
+  /* Tonal roles */
+  --md-primary:              oklch(54% 0.097 145);
+  --md-on-primary:           oklch(99% 0.003 145);
+  --md-primary-container:    oklch(89% 0.053 145);
+  --md-on-primary-container: oklch(20% 0.08  145);
+
+  --md-secondary:              oklch(57% 0.046 145);
+  --md-on-secondary:           oklch(99% 0.003 145);
+  --md-secondary-container:    oklch(91% 0.028 145);
+  --md-on-secondary-container: oklch(23% 0.042 145);
+
+  --md-surface:         oklch(98.5% 0.005 145);
+  --md-surface-variant: oklch(91.5% 0.022 145);
+  --md-on-surface:      oklch(19%   0.017 145);
+  --md-on-sv:           oklch(46%   0.028 145);
+
+  --md-outline:         oklch(64% 0.026 145);
+  --md-outline-variant: oklch(83% 0.023 145);
+
+  --md-background: oklch(97% 0.013 145);
+
+  --md-error:              oklch(50% 0.19 25);
+  --md-error-container:    oklch(92% 0.06 25);
+  --md-on-error-container: oklch(25% 0.12 25);
+
+  --md-warning-container: oklch(93% 0.06 85);
+  --md-on-warning-container: oklch(30% 0.09 85);
+
+  /* M3 Elevation — surface tints via oklch */
+  --elev-1: 0 1px 2px oklch(19% 0.017 145 / 0.10),
+            0 2px 6px oklch(19% 0.017 145 / 0.06);
+  --elev-2: 0 1px 2px oklch(19% 0.017 145 / 0.12),
+            0 4px 12px oklch(19% 0.017 145 / 0.08);
+  --elev-3: 0 2px 4px oklch(19% 0.017 145 / 0.12),
+            0 8px 20px oklch(19% 0.017 145 / 0.10);
+
+  /* M3 Shape scale */
+  --shape-xs:  4px;
+  --shape-sm:  8px;
+  --shape-md:  12px;
+  --shape-lg:  16px;
+  --shape-xl:  28px;
+  --shape-full: 9999px;
+
+  /* M3 Motion */
+  --motion-std:      cubic-bezier(0.2, 0, 0, 1);
+  --motion-decel:    cubic-bezier(0, 0, 0, 1);
+  --motion-accel:    cubic-bezier(0.3, 0, 1, 1);
+  --dur-short:  150ms;
+  --dur-med:    200ms;
+  --dur-long:   300ms;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--md-background);
+  color: var(--md-on-surface);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TYPE SCALE ── */
+.display-sm  { font-size: 2.25rem; font-weight: 400; line-height: 2.75rem; letter-spacing: -0.016em; }
+.headline-md { font-size: 1.75rem; font-weight: 400; line-height: 2.25rem; letter-spacing: -0.008em; }
+.title-lg    { font-size: 1.375rem; font-weight: 500; line-height: 1.75rem; letter-spacing: -0.004em; }
+.title-md    { font-size: 1rem;    font-weight: 600; line-height: 1.5rem;  letter-spacing: 0; }
+.label-lg    { font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; letter-spacing: 0.006em; }
+.body-lg     { font-size: 1rem;    font-weight: 400; line-height: 1.5rem; }
+.body-md     { font-size: 0.875rem; font-weight: 400; line-height: 1.25rem; }
+.body-sm     { font-size: 0.75rem; font-weight: 400; line-height: 1rem; letter-spacing: 0.01em; }
+
+/* ── PAGINE ── */
+.pagina { display: none; }
+.pagina.attiva { display: block; }
+
+/* ── TOP APP BAR ── */
+.app-bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-outline-variant);
+  padding: 0 16px;
+  height: 64px;
+  display: flex; align-items: center; gap: 12px;
+}
+.app-bar-title { font-size: 1.375rem; font-weight: 500; letter-spacing: -0.004em; }
+.app-bar-spacer { flex: 1; }
+.icon-btn {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; cursor: pointer;
+  border-radius: var(--shape-full);
+  position: relative; overflow: hidden;
+  font-size: 1.1rem;
+  color: var(--md-on-sv);
+  transition: color var(--dur-short) var(--motion-std);
+  font-family: inherit;
+}
+.icon-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--md-on-surface);
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity var(--dur-short) var(--motion-std);
+}
+.icon-btn:hover::before { opacity: 0.08; }
+.icon-btn:active::before { opacity: 0.12; }
+
+/* ── LAYOUT ── */
+.page-content {
+  max-width: 840px; margin: 0 auto; padding: 24px 16px 96px;
+}
+
+/* ── M3 BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: inherit; font-size: 0.875rem; font-weight: 600;
+  letter-spacing: 0.006em;
+  padding: 10px 24px;
+  border: none; cursor: pointer;
+  border-radius: var(--shape-full);
+  position: relative; overflow: hidden;
+  transition: box-shadow var(--dur-short) var(--motion-std);
+  white-space: nowrap;
+}
+.btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--dur-short) var(--motion-std);
+}
+.btn:active { transform: scale(0.98); }
+.btn:focus-visible { outline: 3px solid var(--md-primary); outline-offset: 2px; }
+
+/* Filled */
+.btn-filled {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--elev-1);
+}
+.btn-filled::before { background: var(--md-on-primary); }
+.btn-filled:hover { box-shadow: var(--elev-2); }
+.btn-filled:hover::before { opacity: 0.08; }
+.btn-filled:active::before { opacity: 0.12; }
+
+/* Tonal (primary container) */
+.btn-tonal {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
+.btn-tonal::before { background: var(--md-on-primary-container); }
+.btn-tonal:hover::before { opacity: 0.08; }
+.btn-tonal:active::before { opacity: 0.12; }
+
+/* Outlined */
+.btn-outlined {
+  background: transparent;
+  color: var(--md-primary);
+  border: 1.5px solid var(--md-outline);
+}
+.btn-outlined::before { background: var(--md-primary); }
+.btn-outlined:hover::before { opacity: 0.08; }
+.btn-outlined:active::before { opacity: 0.12; }
+
+/* Text */
+.btn-text {
+  background: transparent;
+  color: var(--md-primary);
+  padding-left: 12px; padding-right: 12px;
+}
+.btn-text::before { background: var(--md-primary); }
+.btn-text:hover::before { opacity: 0.08; }
+.btn-text:active::before { opacity: 0.12; }
+
+/* Danger tonal */
+.btn-danger {
+  background: var(--md-error-container);
+  color: var(--md-on-error-container);
+}
+.btn-danger::before { background: var(--md-on-error-container); }
+.btn-danger:hover::before { opacity: 0.08; }
+.btn-danger:active::before { opacity: 0.12; }
+
+.btn-sm { padding: 6px 16px; font-size: 0.8rem; }
+.btn-block { width: 100%; justify-content: center; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── FAB ── */
+.fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 20;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border: none; cursor: pointer;
+  border-radius: var(--shape-lg);
+  padding: 16px 20px;
+  font-family: inherit; font-size: 0.875rem; font-weight: 600;
+  letter-spacing: 0.006em;
+  box-shadow: var(--elev-3);
+  position: fixed; overflow: hidden;
+  transition: box-shadow var(--dur-med) var(--motion-std),
+              transform var(--dur-med) var(--motion-std);
+}
+.fab::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--md-on-primary-container);
+  opacity: 0; transition: opacity var(--dur-short) var(--motion-std);
+}
+.fab:hover { box-shadow: var(--elev-3); transform: translateY(-2px); }
+.fab:hover::before { opacity: 0.08; }
+.fab:active { transform: scale(0.97); }
+.fab-icon { font-size: 1.25rem; }
+
+/* ── M3 CARDS ── */
+.card-elevated {
+  background: var(--md-surface);
+  border-radius: var(--shape-md);
+  box-shadow: var(--elev-1);
+  overflow: hidden;
+  position: relative;
+}
+.card-elevated::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--md-primary);
+  opacity: 0.04; /* M3 elev-1 tint */
+  pointer-events: none;
+}
+
+.card-filled {
+  background: var(--md-surface-variant);
+  border-radius: var(--shape-md);
+  overflow: hidden;
+}
+
+/* ── SCHEDA LIST ITEM ── */
+.scheda-item {
+  background: var(--md-surface);
+  border-radius: var(--shape-md);
+  box-shadow: var(--elev-1);
+  display: flex; align-items: center;
+  gap: 0;
+  position: relative; overflow: hidden;
+  transition: box-shadow var(--dur-med) var(--motion-std),
+              transform var(--dur-med) var(--motion-std);
+  margin-bottom: 10px;
+}
+.scheda-item::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--md-on-surface);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-short) var(--motion-std);
+}
+.scheda-item:hover { box-shadow: var(--elev-2); transform: translateY(-1px); }
+.scheda-item:hover::before { opacity: 0.04; }
+
+.scheda-accent {
+  width: 6px; min-height: 72px; align-self: stretch;
+  background: var(--md-primary-container);
+  flex-shrink: 0;
+  border-radius: var(--shape-md) 0 0 var(--shape-md);
+}
+.scheda-body {
+  flex: 1; padding: 14px 16px;
+  min-width: 0;
+}
+.scheda-name { font-size: 0.95rem; font-weight: 600; color: var(--md-on-surface); margin-bottom: 4px; }
+.scheda-meta {
+  display: flex; gap: 6px; align-items: center;
+  flex-wrap: wrap;
+}
+.chip {
+  display: inline-flex; align-items: center;
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  border-radius: var(--shape-full);
+  padding: 2px 10px;
+  font-size: 0.73rem; font-weight: 500;
+}
+.scheda-actions {
+  display: flex; gap: 4px; align-items: center;
+  padding: 8px 12px 8px 0; flex-shrink: 0;
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 80px 28px 64px;
+  border-radius: var(--shape-xl);
+  border: 2px dashed var(--md-outline-variant);
+  background: var(--md-surface);
+}
+.empty-icon-wrap {
+  width: 72px; height: 72px; margin: 0 auto 24px;
+  background: var(--md-primary-container);
+  border-radius: var(--shape-xl);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+}
+.empty-state h2 { font-size: 1.375rem; font-weight: 500; margin-bottom: 10px; color: var(--md-on-surface); }
+.empty-state p { font-size: 0.875rem; color: var(--md-on-sv); max-width: 320px; margin: 0 auto 28px; line-height: 1.6; }
+
+/* ── STEP CARD ── */
+.step-card {
+  background: var(--md-surface);
+  border-radius: var(--shape-lg);
+  box-shadow: var(--elev-1);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.step-header {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  padding: 14px 22px;
+  display: flex; align-items: center; gap: 12px;
+  /* M3 Expressive asymmetric: sharp top, rounded where it meets content */
+  border-radius: var(--shape-lg) var(--shape-lg) 0 0;
+}
+.step-num {
+  width: 28px; height: 28px;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  border-radius: var(--shape-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.step-title { font-size: 0.95rem; font-weight: 600; }
+.step-body { padding: 22px; }
+
+/* ── M3 TEXT FIELDS ── */
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field-label {
+  display: block;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--md-on-sv);
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.field-input, .field-textarea {
+  width: 100%;
+  background: var(--md-surface-variant);
+  border: none;
+  border-bottom: 2px solid var(--md-outline);
+  border-radius: var(--shape-sm) var(--shape-sm) 0 0;
+  padding: 12px 16px;
+  font-family: inherit; font-size: 0.92rem;
+  color: var(--md-on-surface);
+  transition: border-color var(--dur-short) var(--motion-std),
+              background var(--dur-short) var(--motion-std);
+  outline: none;
+}
+.field-input:hover, .field-textarea:hover {
+  background: oklch(from var(--md-surface-variant) calc(l - 0.02) c h);
+}
+.field-input:focus, .field-textarea:focus {
+  border-bottom-color: var(--md-primary);
+  border-bottom-width: 3px;
+  background: oklch(from var(--md-surface-variant) calc(l - 0.015) c h);
+}
+.field-input::placeholder, .field-textarea::placeholder {
+  color: var(--md-on-sv); opacity: 0.7;
+}
+.field-textarea { resize: vertical; min-height: 100px; }
+
+/* ── PROMPT BOX ── */
+.prompt-box {
+  background: var(--md-surface-variant);
+  border-radius: var(--shape-sm);
+  padding: 16px;
+  font-size: 0.85rem; font-family: inherit;
+  line-height: 1.65; color: var(--md-on-sv);
+  white-space: pre-wrap;
+  max-height: 200px; overflow-y: auto;
+  margin-bottom: 14px;
+  border: 1px solid var(--md-outline-variant);
+}
+
+/* ── MESSAGES ── */
+.msg {
+  display: none; align-items: flex-start; gap: 12px;
+  border-radius: var(--shape-md);
+  padding: 14px 16px;
+  font-size: 0.875rem; line-height: 1.5;
+  margin-top: 14px;
+}
+.msg.show { display: flex; }
+.msg-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.msg-error   { background: var(--md-error-container); color: var(--md-on-error-container); }
+.msg-success { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.msg-warning { background: var(--md-warning-container); color: var(--md-on-warning-container); }
+
+/* ── EDITOR TABLE ── */
+.table-wrap {
+  border-radius: var(--shape-md);
+  overflow: hidden;
+  border: 1.5px solid var(--md-outline-variant);
+}
+.editor-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.editor-table th {
+  background: var(--md-on-surface);
+  color: var(--md-surface);
+  padding: 11px 13px;
+  text-align: left; font-size: 0.78rem;
+  font-weight: 600; letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.editor-table td {
+  border-bottom: 1px solid var(--md-outline-variant);
+  vertical-align: top;
+  padding: 4px;
+  background: var(--md-surface);
+}
+.editor-table tr:nth-child(even) td { background: var(--md-surface-variant); }
+.editor-table tr:last-child td { border-bottom: none; }
+.editor-table td textarea {
+  border: none; background: transparent;
+  padding: 8px 10px; min-height: 66px;
+  font-size: 0.84rem; font-family: inherit;
+  color: var(--md-on-surface); resize: vertical;
+  outline: none; width: 100%; display: block;
+  border-radius: var(--shape-xs);
+  transition: box-shadow var(--dur-short) var(--motion-std);
+}
+.editor-table td textarea:focus {
+  box-shadow: inset 0 0 0 2px var(--md-primary);
+}
+.editor-table td.col-del { width: 40px; text-align: center; vertical-align: middle; }
+.del-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; cursor: pointer;
+  border-radius: var(--shape-full); color: var(--md-on-sv);
+  font-size: 0.9rem; position: relative; overflow: hidden;
+  margin: 0 auto;
+  transition: color var(--dur-short) var(--motion-std);
+  font-family: inherit;
+}
+.del-btn::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: inherit; background: var(--md-error);
+  opacity: 0; transition: opacity var(--dur-short) var(--motion-std);
+}
+.del-btn:hover { color: var(--md-error); }
+.del-btn:hover::before { opacity: 0.1; }
+
+/* ── HELPER NOTE ── */
+.helper { font-size: 0.78rem; color: var(--md-on-sv); line-height: 1.5; margin-top: 10px; }
+
+/* ══ PRINT — DC-85 document ══ */
+.print-wrap {
+  background: var(--md-surface);
+  border-radius: var(--shape-lg);
+  box-shadow: var(--elev-1);
+  padding: 28px;
+}
+.print-info {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-radius: var(--shape-md);
+  padding: 16px 20px; margin-bottom: 24px;
+  font-size: 0.875rem; line-height: 1.6;
+}
+
+.dc85-page {
+  width: 100%; max-width: 760px; margin: 0 auto 48px;
+  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #111;
+}
+.dc85-page:last-of-type { margin-bottom: 0; }
+
+.dc85-head { border: 2px solid #111; }
+.dc85-head-row { display: flex; border-bottom: 1.5px solid #111; }
+.dc85-logo {
+  padding: 10px 14px; border-right: 1.5px solid #111;
+  font-weight: 900; font-size: 15pt;
+  display: flex; align-items: center; min-width: 80px;
+  letter-spacing: -0.03em;
+}
+.dc85-doc-title { flex: 1; padding: 9px 13px; border-right: 1.5px solid #111; }
+.dc85-doc-title .tipo { font-size: 6.5pt; color: #666; text-transform: uppercase; letter-spacing: 0.8px; }
+.dc85-doc-title .nome { font-weight: 700; font-size: 10.5pt; margin-top: 3px; }
+.dc85-code { padding: 9px 14px; min-width: 110px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.dc85-code .tipo { font-size: 6.5pt; color: #666; text-transform: uppercase; letter-spacing: 0.8px; }
+.dc85-code .valore { font-weight: 800; font-size: 14pt; margin-top: 2px; letter-spacing: -0.02em; }
+.dc85-desc { padding: 9px 13px; border-top: 1.5px solid #111; }
+.dc85-desc .etichetta { font-size: 6.5pt; color: #666; text-transform: uppercase; letter-spacing: 0.8px; }
+.dc85-desc .valore { font-weight: 700; font-size: 10pt; margin-top: 3px; }
+
+.dc85-table { width: 100%; border-collapse: collapse; border: 2px solid #111; border-top: none; }
+.dc85-table th {
+  background: #1a1a2e; color: #fff;
+  padding: 8px 10px; font-size: 8pt; font-weight: 700; text-align: left;
+  border: 1px solid #1a1a2e;
+}
+.dc85-table td {
+  border: 1px solid #aaa; padding: 7px 9px;
+  vertical-align: top; font-size: 8.5pt; line-height: 1.45;
+}
+.dc85-table tr:nth-child(even) td { background: #f8f8f8; }
+.dc85-table .col-a { width: 28%; }
+.dc85-table .col-r { width: 32%; }
+.dc85-table .col-c { width: 40%; }
+
+.dc85-foot { border: 2px solid #111; border-top: 1.5px solid #aaa; display: flex; }
+.dc85-foot-cell { flex: 1; padding: 9px 12px; border-right: 1.5px solid #aaa; font-size: 7.5pt; }
+.dc85-foot-cell:last-child { border-right: none; }
+.dc85-foot-cell .et { color: #666; text-transform: uppercase; font-size: 6.5pt; letter-spacing: 0.5px; }
+.dc85-foot-cell .line { height: 18px; border-bottom: 1px solid #bbb; margin-top: 5px; }
+.dc85-pager { text-align: right; font-size: 7pt; color: #888; padding: 4px 8px; border-top: 1px solid #ddd; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .page-content { padding: 16px 12px 96px; }
+  .step-body { padding: 16px; }
+  .scheda-item { flex-wrap: wrap; }
+  .scheda-actions { padding: 0 12px 12px; width: 100%; justify-content: flex-end; }
+  .dc85-head-row { flex-direction: column; }
+  .dc85-logo { border-right: none; border-bottom: 1.5px solid #111; }
+  .dc85-code { text-align: left; border-top: 1.5px solid #111; padding-left: 13px; }
+  .dc85-foot { flex-direction: column; }
+  .dc85-foot-cell { border-right: none; border-bottom: 1px solid #aaa; }
+  .dc85-foot-cell:last-child { border-bottom: none; }
+}
+
+@media print {
+  body { background: #fff !important; }
+  .no-print { display: none !important; }
+  .app-bar  { display: none !important; }
+  .print-wrap { box-shadow: none !important; padding: 0 !important; }
+  .dc85-page { page-break-after: always; margin: 0 !important; }
+  .dc85-page:last-of-type { page-break-after: avoid; }
+  @page { margin: 14mm 12mm; size: A4 landscape; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ HOME ══════ -->
+<div id="p-home" class="pagina attiva">
+  <div class="app-bar no-print">
+    <span class="app-bar-title">DC-85</span>
+    <span class="app-bar-spacer"></span>
+  </div>
+  <div class="page-content">
+    <div style="margin-bottom:24px; display:flex; align-items:baseline; gap:12px; justify-content:space-between;">
+      <div>
+        <div class="headline-md" style="color:var(--md-on-surface); margin-bottom:4px;">Le tue schede</div>
+        <div id="home-sub" class="body-md" style="color:var(--md-on-sv)">Nessuna scheda ancora</div>
+      </div>
+    </div>
+    <div id="lista"></div>
+  </div>
+
+  <button class="fab no-print" onclick="apriNuova()">
+    <span class="fab-icon">＋</span>
+    <span>Nuova scheda</span>
+  </button>
+</div>
+
+<!-- ══════ EDITOR ══════ -->
+<div id="p-editor" class="pagina">
+  <div class="app-bar no-print">
+    <button class="icon-btn" onclick="tornaHome()" title="Indietro">←</button>
+    <span class="app-bar-title" id="editor-title">Nuova scheda</span>
+  </div>
+  <div class="page-content">
+
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">1</span>
+        <span class="step-title">Di cosa si tratta?</span>
+      </div>
+      <div class="step-body">
+        <div class="field">
+          <label class="field-label" for="f-nome">Nome per ritrovare questa scheda</label>
+          <input class="field-input" id="f-nome" type="text" placeholder="Es: Pulizia pavimenti, Utilizzo scala…">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-attivita">Descrizione dell'attività (apparirà nel documento)</label>
+          <input class="field-input" id="f-attivita" type="text"
+            placeholder="Es: Pulizia dei pavimenti con macchinario lavasciuga"
+            oninput="aggiornPrompt()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">2</span>
+        <span class="step-title">Chiedi all'intelligenza artificiale</span>
+      </div>
+      <div class="step-body">
+        <p class="body-md" style="color:var(--md-on-sv); margin-bottom:14px; line-height:1.6">
+          Copia il testo qui sotto e incollalo in <strong style="color:var(--md-on-surface)">ChatGPT</strong>
+          o <strong style="color:var(--md-on-surface)">Gemini</strong>. Invia e attendi la risposta.
+        </p>
+        <div id="prompt-box" class="prompt-box">Scrivi prima la descrizione al punto 1…</div>
+        <button class="btn btn-tonal" id="btn-copia" onclick="copiaPrompt()">📋 Copia testo</button>
+        <p class="helper">Dopo aver copiato, apri ChatGPT o Gemini, incolla e invia. Poi torna qui con la risposta.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">3</span>
+        <span class="step-title">Incolla la risposta</span>
+      </div>
+      <div class="step-body">
+        <div class="field">
+          <label class="field-label" for="f-risposta">Copia tutta la risposta dell'intelligenza artificiale e incollala qui</label>
+          <textarea class="field-textarea" id="f-risposta" rows="8"
+            placeholder="Incolla qui la risposta di ChatGPT o Gemini…"></textarea>
+        </div>
+        <button class="btn btn-filled" onclick="caricaRisposta()">✓ Carica dati</button>
+        <div id="msg-errore" class="msg msg-error">
+          <span class="msg-icon">⚠</span>
+          <span>Non riesco a leggere la risposta. Prova a chiedere all'AI di rispondere di nuovo: a volte basta ricopiare il testo per intero.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 — tabella -->
+    <div class="step-card" id="sez-tabella" style="display:none">
+      <div class="step-header">
+        <span class="step-num">4</span>
+        <span class="step-title">Controlla e correggi</span>
+      </div>
+      <div class="step-body">
+        <p class="body-md" style="color:var(--md-on-sv); margin-bottom:16px; line-height:1.6">
+          Puoi modificare ogni cella. Usa <strong style="color:var(--md-on-surface)">+ Aggiungi riga</strong> se mancano fasi.
+        </p>
+        <div class="table-wrap" style="overflow-x:auto">
+          <table class="editor-table">
+            <thead>
+              <tr>
+                <th style="width:28%">Sequenza attività</th>
+                <th style="width:30%">Rischi</th>
+                <th style="width:36%">Metodi di controllo</th>
+                <th style="width:40px"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div id="msg-overflow" class="msg msg-warning" style="margin-top:12px">
+          <span class="msg-icon">⚠</span>
+          <span>Hai più di 5 righe: il documento verrà diviso su più pagine in gruppi di 5.</span>
+        </div>
+        <div style="margin-top:14px">
+          <button class="btn btn-outlined btn-sm" onclick="addRow()">+ Aggiungi riga</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-card" id="sez-salva" style="display:none">
+      <div class="step-header">
+        <span class="step-num">5</span>
+        <span class="step-title">Salva e stampa</span>
+      </div>
+      <div class="step-body">
+        <div id="msg-ok" class="msg msg-success" style="margin-top:0; margin-bottom:16px">
+          <span class="msg-icon">✓</span>
+          <span>Scheda salvata. Puoi stamparla o chiudere.</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outlined" style="flex:1; justify-content:center" onclick="salva()">💾 Salva scheda</button>
+          <button class="btn btn-filled"   style="flex:1; justify-content:center" onclick="apriStampa()">🖨 Anteprima / Stampa PDF</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ STAMPA ══════ -->
+<div id="p-stampa" class="pagina">
+  <div class="app-bar no-print">
+    <button class="icon-btn" onclick="tornaEditor()" title="Torna all'editor">←</button>
+    <span class="app-bar-title">Anteprima stampa</span>
+    <span class="app-bar-spacer"></span>
+    <button class="btn btn-filled btn-sm no-print" onclick="window.print()">🖨 Stampa / PDF</button>
+  </div>
+  <div class="page-content">
+    <div class="print-info no-print">
+      Clicca <strong>Stampa / PDF</strong> in alto a destra. Nella finestra di stampa scegli
+      <em>"Salva come PDF"</em> come destinazione e <strong>Orizzontale</strong> come orientamento.
+    </div>
+    <div class="print-wrap">
+      <div id="stampa-contenuto"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DB ────────────────────────────────────
+let db;
+function apriDB() {
+  return new Promise((ok, ko) => {
+    const r = indexedDB.open('dc85', 1);
+    r.onupgradeneeded = e => e.target.result.createObjectStore('schede', { keyPath: 'id', autoIncrement: true });
+    r.onsuccess = e => { db = e.target.result; ok(); };
+    r.onerror = () => ko(r.error);
+  });
+}
+const dbAll  = () => tx('readonly',  s => s.getAll());
+const dbPut  = d  => tx('readwrite', s => s.put(d));
+const dbDel  = id => tx('readwrite', s => s.delete(id));
+const dbGet  = id => tx('readonly',  s => s.get(id));
+function tx(mode, fn) {
+  return new Promise((ok, ko) => {
+    const r = fn(db.transaction('schede', mode).objectStore('schede'));
+    r.onsuccess = () => ok(r.result);
+    r.onerror = () => ko(r.error);
+  });
+}
+
+// ─── STATE ─────────────────────────────────
+let cur = null;
+
+// ─── NAV ───────────────────────────────────
+const show = id => {
+  document.querySelectorAll('.pagina').forEach(p => p.classList.remove('attiva'));
+  document.getElementById(id).classList.add('attiva');
+  window.scrollTo(0, 0);
+};
+function tornaHome()   { show('p-home');   caricaLista(); }
+function tornaEditor() { show('p-editor'); }
+
+// ─── HOME ──────────────────────────────────
+async function caricaLista() {
+  const lista = (await dbAll()).sort((a, b) => b.modificata - a.modificata);
+  const sub = document.getElementById('home-sub');
+  const el  = document.getElementById('lista');
+
+  sub.textContent = lista.length
+    ? `${lista.length} ${lista.length === 1 ? 'scheda' : 'schede'}`
+    : 'Nessuna scheda ancora';
+
+  if (!lista.length) {
+    el.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon-wrap">📋</div>
+        <h2>Nessuna scheda</h2>
+        <p>Crea la prima scheda DC-85 con l'aiuto dell'intelligenza artificiale in pochi minuti.</p>
+        <button class="btn btn-filled" onclick="apriNuova()">+ Crea prima scheda</button>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML = lista.map(s => `
+    <div class="scheda-item">
+      <div class="scheda-accent"></div>
+      <div class="scheda-body">
+        <div class="scheda-name">${esc(s.nome)}</div>
+        <div class="scheda-meta">
+          <span class="chip">${s.righe.length} ${s.righe.length === 1 ? 'fase' : 'fasi'}</span>
+          <span class="body-sm" style="color:var(--md-on-sv)">${esc(s.descrizione)}</span>
+          <span class="body-sm" style="color:var(--md-outline)">${fmt(s.modificata)}</span>
+        </div>
+      </div>
+      <div class="scheda-actions">
+        <button class="btn btn-outlined btn-sm" onclick="apriScheda(${s.id})">✏️ Modifica</button>
+        <button class="btn btn-tonal   btn-sm" onclick="stampaDiretta(${s.id})">🖨</button>
+        <button class="btn btn-danger  btn-sm" onclick="elimina(${s.id},'${esc(s.nome)}')">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+async function elimina(id, nome) {
+  if (!confirm(`Eliminare la scheda "${nome}"?\nNon si può annullare.`)) return;
+  await dbDel(id);
+  caricaLista();
+}
+
+// ─── EDITOR ────────────────────────────────
+function apriNuova() {
+  cur = { nome:'', descrizione:'', righe:[], creata: Date.now(), modificata: Date.now() };
+  impostaEditor();
+  show('p-editor');
+}
+
+async function apriScheda(id) {
+  cur = await dbGet(id);
+  impostaEditor();
+  show('p-editor');
+}
+
+async function stampaDiretta(id) {
+  cur = await dbGet(id);
+  apriStampa();
+}
+
+function impostaEditor() {
+  document.getElementById('editor-title').textContent = cur.id ? 'Modifica scheda' : 'Nuova scheda';
+  document.getElementById('f-nome').value     = cur.nome        || '';
+  document.getElementById('f-attivita').value = cur.descrizione || '';
+  document.getElementById('f-risposta').value = '';
+  document.getElementById('msg-errore').classList.remove('show');
+  document.getElementById('msg-ok').classList.remove('show');
+
+  if (cur.righe?.length) {
+    fillTable(cur.righe);
+    document.getElementById('sez-tabella').style.display = '';
+    document.getElementById('sez-salva').style.display   = '';
+  } else {
+    document.getElementById('sez-tabella').style.display = 'none';
+    document.getElementById('sez-salva').style.display   = 'none';
+    document.getElementById('tbody').innerHTML = '';
+  }
+  aggiornPrompt();
+}
+
+// ─── PROMPT ────────────────────────────────
+function aggiornPrompt() {
+  const att = document.getElementById('f-attivita').value.trim();
+  document.getElementById('prompt-box').textContent = att
+    ? mkPrompt(att)
+    : 'Scrivi prima la descrizione al punto 1…';
+}
+
+function mkPrompt(att) {
+  return `Devi aiutarmi a compilare una scheda di sicurezza sul lavoro.
+Attività da analizzare: "${att}"
+
+Rispondi SOLO con un blocco JSON valido, senza nessun altro testo prima o dopo. La struttura deve essere esattamente questa:
+
+{
+  "descrizione": "titolo breve dell'attività",
+  "righe": [
+    {
+      "attivita": "descrizione della fase o operazione",
+      "rischi": "rischi specifici di questa fase",
+      "controlli": "misure preventive e di controllo da adottare"
+    }
+  ]
+}
+
+Regole:
+- Elenca ogni fase separatamente (minimo 3, massimo 8 righe)
+- Per ogni fase indica rischi concreti e misure di prevenzione pratiche
+- Scrivi in italiano, in modo chiaro e diretto
+- Non aggiungere spiegazioni fuori dal JSON`;
+}
+
+async function copiaPrompt() {
+  const t = document.getElementById('prompt-box').textContent;
+  if (t.startsWith('Scrivi')) return;
+  const btn = document.getElementById('btn-copia');
+  try {
+    await navigator.clipboard.writeText(t);
+    btn.textContent = '✓ Copiato!';
+    setTimeout(() => btn.textContent = '📋 Copia testo', 2500);
+  } catch {
+    alert('Seleziona il testo nel riquadro grigio e copialo manualmente (Ctrl+C / Cmd+C).');
+  }
+}
+
+// ─── LOAD AI RESPONSE ──────────────────────
+function caricaRisposta() {
+  const raw  = document.getElementById('f-risposta').value.trim();
+  const errEl = document.getElementById('msg-errore');
+  errEl.classList.remove('show');
+  if (!raw) { errEl.classList.add('show'); return; }
+
+  const d = parseJSON(raw);
+  if (!d?.righe?.length) { errEl.classList.add('show'); return; }
+
+  const fa = document.getElementById('f-attivita');
+  const fn = document.getElementById('f-nome');
+  if (d.descrizione && !fa.value.trim()) { fa.value = d.descrizione; aggiornPrompt(); }
+  if (d.descrizione && !fn.value.trim())   fn.value = d.descrizione;
+
+  fillTable(d.righe);
+  document.getElementById('sez-tabella').style.display = '';
+  document.getElementById('sez-salva').style.display   = '';
+  document.getElementById('sez-tabella').scrollIntoView({ behavior:'smooth' });
+}
+
+function parseJSON(t) {
+  t = t.replace(/^```[a-z]*\n?/m,'').replace(/```\s*$/m,'').trim();
+  const a = t.indexOf('{'), b = t.lastIndexOf('}');
+  if (a === -1 || b === -1) return null;
+  try { return JSON.parse(t.slice(a, b + 1)); } catch { return null; }
+}
+
+// ─── TABLE ─────────────────────────────────
+function fillTable(rows) {
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = '';
+  rows.forEach(r => addRowData(r));
+  checkOverflow();
+}
+
+function addRow() { addRowData({ attivita:'', rischi:'', controlli:'' }); checkOverflow(); }
+
+function addRowData(r) {
+  const tb = document.getElementById('tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><textarea placeholder="Fase o operazione…">${esc(r.attivita||'')}</textarea></td>
+    <td><textarea placeholder="Rischi specifici…">${esc(r.rischi||'')}</textarea></td>
+    <td><textarea placeholder="Misure preventive…">${esc(r.controlli||'')}</textarea></td>
+    <td class="col-del"><button class="del-btn" onclick="this.closest('tr').remove();checkOverflow()" title="Rimuovi riga">✕</button></td>`;
+  tb.appendChild(tr);
+}
+
+function checkOverflow() {
+  const n = document.getElementById('tbody').children.length;
+  document.getElementById('msg-overflow').classList.toggle('show', n > 5);
+}
+
+function readRows() {
+  return [...document.querySelectorAll('#tbody tr')].map(tr => {
+    const ta = tr.querySelectorAll('textarea');
+    return { attivita: ta[0].value.trim(), rischi: ta[1].value.trim(), controlli: ta[2].value.trim() };
+  });
+}
+
+// ─── SAVE ──────────────────────────────────
+async function salva() {
+  const nome       = document.getElementById('f-nome').value.trim();
+  const descrizione= document.getElementById('f-attivita').value.trim();
+  const righe      = readRows();
+
+  if (!nome)        { alert('Scrivi un nome per questa scheda (Punto 1).'); return; }
+  if (!descrizione) { alert('Scrivi la descrizione dell\'attività (Punto 1).'); return; }
+  if (!righe.length){ alert('Aggiungi almeno una riga alla tabella.'); return; }
+
+  Object.assign(cur, { nome, descrizione, righe, modificata: Date.now() });
+  if (!cur.creata) cur.creata = Date.now();
+
+  const id = await dbPut(cur);
+  if (!cur.id) cur.id = id;
+
+  const ok = document.getElementById('msg-ok');
+  ok.classList.add('show');
+  setTimeout(() => ok.classList.remove('show'), 4000);
+}
+
+// ─── PRINT ─────────────────────────────────
+function apriStampa() {
+  const desc  = cur.descrizione || document.getElementById('f-attivita').value.trim();
+  const righe = cur.righe?.length ? cur.righe : readRows();
+  if (!desc || !righe.length) { alert('Salva prima la scheda.'); return; }
+
+  const PX = 5;
+  const pages = [];
+  for (let i = 0; i < righe.length; i += PX) pages.push(righe.slice(i, i + PX));
+
+  document.getElementById('stampa-contenuto').innerHTML = pages.map((g, idx) => {
+    const rows = g.map(r => `
+      <tr>
+        <td class="col-a">${esc(r.attivita).replace(/\n/g,'<br>')}</td>
+        <td class="col-r">${esc(r.rischi).replace(/\n/g,'<br>')}</td>
+        <td class="col-c">${esc(r.controlli).replace(/\n/g,'<br>')}</td>
+      </tr>`).join('');
+    const empty = Array(Math.max(0, PX - g.length))
+      .fill('<tr><td class="col-a">&nbsp;</td><td class="col-r">&nbsp;</td><td class="col-c">&nbsp;</td></tr>')
+      .join('');
+
+    return `
+    <div class="dc85-page">
+      <div class="dc85-head">
+        <div class="dc85-head-row">
+          <div class="dc85-logo">DC</div>
+          <div class="dc85-doc-title">
+            <div class="tipo">Istruzione Operativa di Sicurezza</div>
+            <div class="nome">Analisi dei rischi per attività specifica</div>
+          </div>
+          <div class="dc85-code">
+            <div class="tipo">Codice</div>
+            <div class="valore">DC-85</div>
+          </div>
+        </div>
+        <div class="dc85-desc">
+          <div class="etichetta">Descrizione dell'attività</div>
+          <div class="valore">${esc(desc)}</div>
+        </div>
+      </div>
+      <table class="dc85-table">
+        <thead><tr>
+          <th class="col-a">Sequenza delle attività</th>
+          <th class="col-r">Rischi</th>
+          <th class="col-c">Metodi per i controlli</th>
+        </tr></thead>
+        <tbody>${rows}${empty}</tbody>
+      </table>
+      <div class="dc85-foot">
+        <div class="dc85-foot-cell"><div class="et">Redatto da</div><div class="line"></div></div>
+        <div class="dc85-foot-cell"><div class="et">Data</div><div class="line"></div></div>
+        <div class="dc85-foot-cell"><div class="et">Approvato da</div><div class="line"></div></div>
+        <div class="dc85-foot-cell"><div class="et">Firma</div><div class="line"></div></div>
+      </div>
+      ${pages.length > 1 ? `<div class="dc85-pager">Pagina ${idx+1} di ${pages.length}</div>` : ''}
+    </div>
+    ${idx < pages.length-1 ? '<div style="height:32px" class="no-print"></div>' : ''}`;
+  }).join('');
+
+  show('p-stampa');
+}
+
+// ─── UTILS ─────────────────────────────────
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmt(ts) {
+  return ts ? new Date(ts).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}) : '';
+}
+
+// ─── INIT ──────────────────────────────────
+apriDB().then(caricaLista);
+</script>
+</body>
+</html>
