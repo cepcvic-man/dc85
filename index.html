@@ -1226,95 +1226,48 @@ function mkPrompt(att, note) {
     ? `\nIstruzioni speciali da rispettare:\n${note}\n`
     : '';
 
-  return `Sei un esperto di sicurezza sul lavoro (RSPP) con esperienza nella redazione di documenti di valutazione dei rischi secondo il D.Lgs. 81/2008. Devi compilare la griglia di una scheda DC-85 per la seguente attività:
-
-Attività da analizzare: "${att}"
+  return `Sei un esperto RSPP. Compila la griglia DC-85 per: "${att}"
 ${extra}
-La griglia ha tre colonne: SEQUENZA DELLE ATTIVITÀ | RISCHI | METODI PER I CONTROLLI.
-Ogni riga rappresenta una fase distinta dell'attività, analizzata in profondità.
+Tre colonne per ogni riga: SEQUENZA ATTIVITÀ | RISCHI | METODI DI CONTROLLO.
 
-════════════════════════════════════════
-ISTRUZIONI DETTAGLIATE PER OGNI COLONNA
-════════════════════════════════════════
+OGNI CELLA deve essere una frase tecnica densa tra 90 e 105 caratteri. Corto e generico = inaccettabile.
 
-COLONNA 1 — "attivita" (Sequenza delle attività):
-• Descrivi COSA si fa, CON QUALI STRUMENTI, IN QUALE CONTESTO operativo.
-• MAI frasi sotto 90 caratteri. Includi: attrezzatura, modalità, ambiente, numero addetti.
-  ✗ SBAGLIATO (87 car): "Carico pallet con inserimento forche e sollevamento manuale tramite timone in magazzino"
-  ✓ GIUSTO (103 car): "Carico pallet con transpallet manuale: centraggio forche sotto pallet, pompaggio timone fino 15 cm, avanzamento lento in magazzino"
-• Target: 95-105 caratteri. Sotto 90 è ERRORE.
+"attivita": descrivi cosa si fa, con quale attrezzatura, in quale contesto (luogo, modalità, addetti coinvolti).
+"rischi": cita la categoria di rischio D.Lgs.81/08, il meccanismo preciso di accadimento e il danno potenziale con conseguenze fisiche specifiche.
+"controlli": indica DPI con norma EN/ISO e livello di protezione, procedure operative con standard di riferimento, responsabile e frequenza.
 
-COLONNA 2 — "rischi" (Rischi specifici della fase):
-• OBBLIGATORIO: 2 rischi separati da " ; ". NON è mai accettabile un solo rischio.
-• OGNI elemento (prima e dopo " ; ") deve essere MINIMO 45 caratteri da solo.
-• Formula per OGNI elemento: [categoria D.Lgs.81/08] + [meccanismo dettagliato] + [danno specifico con conseguenze].
-  ✗ SBAGLIATO: "Rischio MMC: spinta transpallet carico con sovraccarico lombare e possibili ernie discali" (88 car totale ma è UN SOLO elemento — ERRORE)
-  ✗ SBAGLIATO: "spinta carico pesante con lombalgie" (35 car — sotto 45, ERRORE)
-  ✓ GIUSTO elemento singolo (≥45 car): "Rischio MMC: spinta ripetuta su timone con carichi >500 kg causa ernie lombari" (76 car ✓)
-  ✓ ESEMPIO CELLA COMPLETA con 2 elementi: "Rischio MMC: spinta ripetuta su timone >500 kg causa sovraccarico rachide e ernie L4-L5 ; Rischio meccanico: pallet instabile in caduta con schiacciamento arti inferiori e fratture"
-• Tipi di rischio: meccanico, elettrico, chimico, ergonomico, biologico, caduta dall'alto, investimento, MMC, rumore, vibrazioni, stress lavoro-correlato, incendio.
-• Target cella: 95-105 caratteri totali. Ogni elemento ≥45 car. Sotto 95 totali è ERRORE.
+ESEMPI che mostrano il livello di dettaglio richiesto:
 
-COLONNA 3 — "controlli" (Metodi per i controlli / misure preventive):
-• OBBLIGATORIO: 2 misure separate da " ; ". NON è mai accettabile una sola misura.
-• OGNI elemento (prima e dopo " ; ") deve essere MINIMO 45 caratteri da solo.
-• Formula per OGNI elemento: [azione/DPI specifico] + [norma EN/ISO con categoria] + [chi esegue e quando/frequenza].
-  ✗ SBAGLIATO: "Scarpe antinf. S3 SRC EN ISO 20345 e guanti EN388 cat.II obbligatori lavoratore" (80 car totale ma è UN SOLO elemento — ERRORE)
-  ✗ SBAGLIATO: "Scarpe S3 SRC e guanti EN388" (28 car — sotto 45, ERRORE)
-  ✓ GIUSTO elemento singolo (≥45 car): "Scarpe antinf. S3 SRC EN ISO 20345 e guanti EN 388 cat. II, lavoratore" (70 car ✓)
-  ✓ ESEMPIO CELLA COMPLETA con 2 elementi: "DPI obbligatori: scarpe S3 SRC EN ISO 20345 e guanti EN 388 cat. II per ogni operazione ; Verifica pre-uso giornaliera: portata max, stato forche, ruote e timone, a cura del preposto"
-• Specifica sempre: norma EN/ISO, categoria DPI, chi esegue (preposto, RSPP, lavoratore), frequenza.
-• Target cella: 95-105 caratteri totali. Ogni elemento ≥45 car. Sotto 95 totali è ERRORE.
+"attivita"
+  ✗ CORTO: "Carico pallet con transpallet in magazzino" (42 car)
+  ✓ DENSO: "Carico pallet su transpallet manuale: inserimento forche centrate, sollevamento a 15 cm con pompaggio timone, trasporto a passo d'uomo" (133 car — tronca a 105 se necessario)
 
-════════════════════════════════
-STRUTTURA E NUMERO DELLE RIGHE
-════════════════════════════════
+"rischi"
+  ✗ CORTO: "Rischio MMC: spinta su timone causa lombalgie acute" (51 car)
+  ✓ DENSO: "Rischio da MMC (art.168): spinta transpallet >2500 kg provoca sovraccarico rachide lombare, ernie discali L4-L5 e cervicalgia cronica" (131 car — tronca a 105 se necessario)
 
-Genera SEMPRE almeno 6 righe (salvo istruzioni speciali che impongono un numero diverso). Schema consigliato:
-1. Fase preparatoria (verifica DPI, attrezzature, area)
-2. Allestimento/messa in sicurezza dell'area operativa
-3. Prima operazione principale
-4. Seconda operazione principale o fase critica
-5. Operazioni accessorie (uso sostanze, lavori in quota, segnaletica)
-6. Gestione anomalie o emergenze
-7. Conclusione, ripristino area e rimessaggio attrezzature
-8. Smaltimento rifiuti, documentazione e registro manutenzione
+"controlli"
+  ✗ CORTO: "Scarpe S3 SRC EN ISO 20345 e guanti EN 388, lavoratore" (54 car)
+  ✓ DENSO: "DPI obbligatori ogni operazione: scarpe antinf. S3 SRC EN ISO 20345, guanti da lavoro EN 388 liv.4, gilet rifl. EN ISO 20471 cl.2" (128 car — tronca a 105 se necessario)
 
-════════════════════════
-REGOLA ASSOLUTA DI DENSITÀ
-════════════════════════
+Genera almeno 6 righe (salvo istruzioni speciali). Copri: preparazione e verifica DPI, allestimento area, fasi operative principali, gestione anomalie, ripristino e documentazione.
 
-Requisiti minimi NON negoziabili — una cella che non li rispetta è un ERRORE da correggere prima di restituire il JSON:
-- "attivita": minimo 90 caratteri, target 95-105
-- "rischi": SEMPRE 2 elementi separati da " ; ", ciascuno ≥45 car, totale 95-105
-- "controlli": SEMPRE 2 elementi separati da " ; ", ciascuno ≥45 car, totale 95-105
+Limiti assoluti (testo inserito in caselle PDF di dimensione fissa — non superare mai):
+- "descrizione": max ${PDF_FIELD_LIMITS.descrizione} car
+- "attivita": 90-${PDF_FIELD_LIMITS.attivita} car
+- "rischi": 90-${PDF_FIELD_LIMITS.rischi} car
+- "controlli": 90-${PDF_FIELD_LIMITS.controlli} car
 
-Procedura di verifica obbligatoria prima di restituire il JSON:
-1. Per ogni "attivita": conta i caratteri → se <90 espandi con dettagli operativi
-2. Per ogni "rischi": verifica che ci siano 2 elementi e che CIASCUNO sia ≥45 car → se no, riscrivi
-3. Per ogni "controlli": verifica che ci siano 2 elementi e che CIASCUNO sia ≥45 car → se no, riscrivi
-
-════════════════════
-LIMITI DI CARATTERI
-════════════════════
-
-- "descrizione": massimo ${PDF_FIELD_LIMITS.descrizione} caratteri (titolo sintetico dell'attività)
-- "attivita": da 90 a ${PDF_FIELD_LIMITS.attivita} caratteri per riga
-- "rischi": da 95 a ${PDF_FIELD_LIMITS.rischi} caratteri per riga (2 elementi, ciascuno ≥45)
-- "controlli": da 95 a ${PDF_FIELD_LIMITS.controlli} caratteri per riga (2 elementi, ciascuno ≥45)
-
-NON usare ritorni a capo all'interno di una cella (separatore tra elementi: " ; ").
-Scrivi in italiano tecnico, preciso e diretto. Usa terminologia normativa D.Lgs. 81/08 corretta.
-
-Rispondi SOLO con il blocco JSON qui sotto, senza testo aggiuntivo prima o dopo:
+Niente ritorni a capo nelle celle. Italiano tecnico normativo.
+Rispondi SOLO con JSON valido, zero testo fuori dal blocco:
 
 {
-  "descrizione": "titolo sintetico attività max ${PDF_FIELD_LIMITS.descrizione} caratteri",
+  "descrizione": "titolo sintetico max ${PDF_FIELD_LIMITS.descrizione} car",
   "righe": [
     {
-      "attivita": "[fase operativa dettagliata con attrezzatura + modalità + contesto, 90-105 car]",
-      "rischi": "[Categoria D.Lgs.81/08]: [meccanismo dettagliato] con [danno specifico] (≥45 car) ; [Categoria 2]: [meccanismo dettagliato] con [danno specifico] (≥45 car)",
-      "controlli": "[DPI specifico con norma EN/ISO e categoria] [chi/quando] (≥45 car) ; [Procedura specifica con strumento + responsabile + frequenza] (≥45 car)"
+      "attivita": "90-105 car: azione operativa + attrezzatura + modalità + contesto",
+      "rischi": "90-105 car: categoria rischio D.Lgs.81/08 + meccanismo preciso + danno fisico specifico con conseguenze",
+      "controlli": "90-105 car: DPI con norma EN/ISO + procedura con standard + responsabile + frequenza"
     }
   ]
 }`;
