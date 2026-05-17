@@ -1238,61 +1238,74 @@ ISTRUZIONI DETTAGLIATE PER OGNI COLONNA
 ════════════════════════════════════════
 
 COLONNA 1 — "attivita" (Sequenza delle attività):
-• Descrivi COSA si fa in quella fase, CON QUALI STRUMENTI, IN QUALE CONTESTO.
-• Sii operativo: non scrivere "Preparazione" ma "Verifica dell'area di lavoro: rimozione ostacoli, controllo pavimentazione e adeguatezza illuminazione artificiale".
-• Includi: strumenti usati, modalità operative, numero di addetti se rilevante, ambiente (interno/esterno, quota, spazio confinato).
-• Limite: massimo ${PDF_FIELD_LIMITS.attivita} caratteri. Punta a usare 85-105 caratteri (mai meno di 70).
+• Descrivi COSA si fa, CON QUALI STRUMENTI, IN QUALE CONTESTO operativo.
+• Sii operativo e specifico. MAI frasi generiche di 2-3 parole.
+  ✗ SBAGLIATO: "Preparazione area" (15 car — troppo corto, inaccettabile)
+  ✓ GIUSTO: "Ispezione visiva dell'area di transito: rimozione ostacoli, verifica planarità pavimento e segnaletica" (97 car)
+• Includi: attrezzatura usata, modalità operativa, contesto (interno/esterno, quota, spazio confinato, orario).
+• Target caratteri: tra 85 e 105. Ogni parola conta — usa tutto lo spazio disponibile.
 
 COLONNA 2 — "rischi" (Rischi specifici della fase):
-• Elenca 2-4 rischi CONCRETI e SPECIFICI separati da " ; ".
-• Per ogni rischio indica: il pericolo + la natura del danno potenziale (es. "Rischio di scivolamento su pavimento bagnato con possibile frattura agli arti inferiori").
-• Classifica i rischi usando terminologia tecnica D.Lgs. 81/08: rischio meccanico, elettrico, chimico, ergonomico, biologico, da caduta dall'alto, da investimento, da movimentazione manuale dei carichi (MMC), da rumore/vibrazioni, da agenti cancerogeni, stress lavoro-correlato, ecc.
-• NON scrivere solo "Rischio caduta" — scrivi "Caduta dall'alto dalla scala portatile con rischio di trauma cranico e fratture".
-• Limite: massimo ${PDF_FIELD_LIMITS.rischi} caratteri. Punta a usare 85-105 caratteri.
+• Elenca 2 rischi COMPLETI separati da " ; ". Ogni singolo rischio deve essere una frase compiuta.
+• Formula OBBLIGATORIA per ogni rischio: [tipo di rischio secondo D.Lgs.81/08] + [meccanismo di accadimento] + [danno potenziale].
+  ✗ SBAGLIATO: "MMC con lombalgie acute" (23 car — troppo corto, inaccettabile)
+  ✓ GIUSTO: "Rischio MMC: sollevamento ripetuto di carichi >20 kg con possibili lombalgie e ernie discali" (92 car)
+  ✗ SBAGLIATO: "Schiacciamento piedi" (20 car — troppo corto, inaccettabile)
+  ✓ GIUSTO: "Rischio meccanico: schiacciamento arti inferiori da pallet instabile con traumi gravi ai piedi" (95 car)
+• Tipi di rischio da usare: meccanico, elettrico, chimico, ergonomico, biologico, caduta dall'alto, investimento, MMC, rumore, vibrazioni, stress lavoro-correlato, incendio, ecc.
+• Target caratteri: tra 85 e 105. Se un solo rischio non basta per raggiungere 85 caratteri, sviluppalo meglio.
 
 COLONNA 3 — "controlli" (Metodi per i controlli / misure preventive):
-• Elenca 2-4 misure preventive PRECISE e APPLICABILI separate da " ; ".
-• Specifica DPI esatti (es. "guanti in nitrile EN 374", "otoprotettori SNR 28 dB", "scarpe antinfortunistiche S3 SRC"), non generici.
-• Includi: procedure operative (verifiche pre-uso, blocco energia LOTO, permessi di lavoro), formazione specifica richiesta, sorveglianza sanitaria, segnaletica da installare, distanze di sicurezza, strumenti di misurazione.
-• Indica anche il responsabile del controllo se rilevante (preposto, RSPP, MC).
-• Limite: massimo ${PDF_FIELD_LIMITS.controlli} caratteri. Punta a usare 85-105 caratteri.
+• Elenca 2 misure preventive COMPLETE separate da " ; ". Ogni misura deve essere una frase compiuta.
+• Formula OBBLIGATORIA: [cosa fare/indossare/verificare] + [con quale standard/norma/strumento] + [chi è responsabile o quando].
+  ✗ SBAGLIATO: "Scarpe S3 SRC e guanti EN388" (28 car — troppo corto, inaccettabile)
+  ✓ GIUSTO: "DPI obbligatori: scarpe antinfortunistiche S3 SRC EN ISO 20345 e guanti da lavoro EN 388 categoria II" (100 car)
+  ✗ SBAGLIATO: "Verifica stabilità pallet" (24 car — troppo corto, inaccettabile)
+  ✓ GIUSTO: "Verifica pre-operativa: controllo stabilità pallet, portata max transpallet (2500 kg) e stato forche" (99 car)
+• Specifica sempre: norma EN/ISO, categoria DPI, chi esegue il controllo (preposto, RSPP, lavoratore), frequenza.
+• Target caratteri: tra 85 e 105.
 
 ════════════════════════════════
 STRUTTURA E NUMERO DELLE RIGHE
 ════════════════════════════════
 
-Genera SEMPRE almeno 6 righe, preferibilmente 7-8 per attività complesse. Segui questo schema logico:
-1. Fase preparatoria (verifica attrezzature, DPI, area di lavoro)
-2. Allestimento/messa in sicurezza dell'area
+Genera SEMPRE almeno 6 righe (salvo istruzioni speciali che impongono un numero diverso). Schema consigliato:
+1. Fase preparatoria (verifica DPI, attrezzature, area)
+2. Allestimento/messa in sicurezza dell'area operativa
 3. Prima operazione principale
-4. Seconda operazione principale (o continuazione)
-5. Eventuali operazioni accessorie o critiche (uso sostanze, lavori in quota, ecc.)
-6. Gestione emergenze/anomalie (se pertinente)
-7. Conclusione e ripristino dell'area
-8. Smaltimento rifiuti/materiali e documentazione (se pertinente)
+4. Seconda operazione principale o fase critica
+5. Operazioni accessorie (uso sostanze, lavori in quota, segnaletica)
+6. Gestione anomalie o emergenze
+7. Conclusione, ripristino area e rimessaggio attrezzature
+8. Smaltimento rifiuti, documentazione e registro manutenzione
+
+════════════════════════
+REGOLA ASSOLUTA DI DENSITÀ
+════════════════════════
+
+OGNI cella deve contenere tra 85 e 105 caratteri. Questo non è un suggerimento: è un requisito tecnico perché il testo deve riempire le caselle del modulo PDF. Una cella con meno di 85 caratteri è un ERRORE. Prima di restituire il JSON, conta i caratteri di ogni cella e, se sotto 85, espandi il testo aggiungendo dettagli tecnici, norme, strumenti, contesto.
 
 ════════════════════
 LIMITI DI CARATTERI
 ════════════════════
 
-Rispetta SEMPRE questi limiti (il testo viene inserito in caselle PDF di dimensione fissa):
 - "descrizione": massimo ${PDF_FIELD_LIMITS.descrizione} caratteri (titolo sintetico dell'attività)
-- "attivita": massimo ${PDF_FIELD_LIMITS.attivita} caratteri per riga
-- "rischi": massimo ${PDF_FIELD_LIMITS.rischi} caratteri per riga
-- "controlli": massimo ${PDF_FIELD_LIMITS.controlli} caratteri per riga
+- "attivita": da 85 a ${PDF_FIELD_LIMITS.attivita} caratteri per riga
+- "rischi": da 85 a ${PDF_FIELD_LIMITS.rischi} caratteri per riga
+- "controlli": da 85 a ${PDF_FIELD_LIMITS.controlli} caratteri per riga
 
-NON usare ritorni a capo all'interno di una cella (il separatore tra elementi è " ; ").
-Scrivi in italiano tecnico, preciso e diretto. Usa terminologia normativa corretta.
+NON usare ritorni a capo all'interno di una cella (separatore tra elementi: " ; ").
+Scrivi in italiano tecnico, preciso e diretto. Usa terminologia normativa D.Lgs. 81/08 corretta.
 
 Rispondi SOLO con il blocco JSON qui sotto, senza testo aggiuntivo prima o dopo:
 
 {
-  "descrizione": "titolo breve dell'attività",
+  "descrizione": "titolo sintetico attività max ${PDF_FIELD_LIMITS.descrizione} caratteri",
   "righe": [
     {
-      "attivita": "descrizione operativa della fase con strumenti e modalità",
-      "rischi": "Rischio specifico 1 con danno potenziale ; Rischio specifico 2 con danno potenziale",
-      "controlli": "Misura preventiva 1 specifica ; Misura preventiva 2 con DPI o procedura esatta"
+      "attivita": "frase operativa completa 85-105 car: cosa + strumenti + contesto",
+      "rischi": "Rischio tipo: meccanismo + danno potenziale (40-50 car) ; Rischio tipo 2: meccanismo + danno (40-50 car)",
+      "controlli": "Misura 1: DPI norma + responsabile (40-50 car) ; Misura 2: procedura + frequenza + chi (40-50 car)"
     }
   ]
 }`;
