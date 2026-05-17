@@ -1207,18 +1207,19 @@ Rispondi SOLO con un blocco JSON valido, senza nessun altro testo prima o dopo. 
 }
 
 Regole:
-- Elenca ogni fase separatamente (minimo 3, massimo 8 righe)
-- Rispetta questi limiti per far stare il testo nelle caselle del PDF:
+- Elenca ogni fase separatamente (minimo 5, massimo 8 righe)
+- Rispetta questi limiti di caratteri per far stare il testo nelle caselle del PDF:
   - "descrizione": massimo ${PDF_FIELD_LIMITS.descrizione} caratteri
   - "attivita": massimo ${PDF_FIELD_LIMITS.attivita} caratteri per riga
   - "rischi": massimo ${PDF_FIELD_LIMITS.rischi} caratteri per riga
   - "controlli": massimo ${PDF_FIELD_LIMITS.controlli} caratteri per riga
-- Scrivi voci concrete e complete, non troppo telegrafiche: ogni cella deve spiegare bene cosa fare o quale rischio considerare
-- Usa 1 frase completa per cella; se serve, 2 frasi molto brevi
-- Non usare elenchi puntati, parentesi lunghe, punto e virgola ripetuti o ritorni a capo nelle celle
-- Copri tutte le fasi significative dell'attività, senza accorpare passaggi diversi solo per brevità
-- Per ogni fase indica rischi concreti e misure di prevenzione pratiche
-- Scrivi in italiano, in modo chiaro e diretto
+- DENSITÀ: ogni cella deve essere ricca e informativa. Punta a usare almeno l'80% dello spazio disponibile (es. ~85 caratteri su 105). Voci troppo brevi come "Indossare DPI" o "Rischio caduta" NON sono accettabili.
+- "attivita": descrivi la fase in modo operativo e specifico (cosa si fa, con quali strumenti o modalità)
+- "rischi": elenca 2-3 rischi concreti separati da punto e virgola, con la natura del danno potenziale
+- "controlli": indica 2-3 misure preventive precise e applicabili, separate da punto e virgola (DPI specifici, verifiche, procedure operative)
+- Non usare ritorni a capo all'interno di una cella
+- Copri tutte le fasi significative, comprese quelle preparatorie e conclusive
+- Scrivi in italiano tecnico, chiaro e diretto
 - Non aggiungere spiegazioni fuori dal JSON`;
 }
 
