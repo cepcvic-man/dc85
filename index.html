@@ -1246,24 +1246,27 @@ COLONNA 1 — "attivita" (Sequenza delle attività):
 • Target caratteri: tra 85 e 105. Ogni parola conta — usa tutto lo spazio disponibile.
 
 COLONNA 2 — "rischi" (Rischi specifici della fase):
-• Elenca 2 rischi COMPLETI separati da " ; ". Ogni singolo rischio deve essere una frase compiuta.
-• Formula OBBLIGATORIA per ogni rischio: [tipo di rischio secondo D.Lgs.81/08] + [meccanismo di accadimento] + [danno potenziale].
-  ✗ SBAGLIATO: "MMC con lombalgie acute" (23 car — troppo corto, inaccettabile)
-  ✓ GIUSTO: "Rischio MMC: sollevamento ripetuto di carichi >20 kg con possibili lombalgie e ernie discali" (92 car)
-  ✗ SBAGLIATO: "Schiacciamento piedi" (20 car — troppo corto, inaccettabile)
-  ✓ GIUSTO: "Rischio meccanico: schiacciamento arti inferiori da pallet instabile con traumi gravi ai piedi" (95 car)
-• Tipi di rischio da usare: meccanico, elettrico, chimico, ergonomico, biologico, caduta dall'alto, investimento, MMC, rumore, vibrazioni, stress lavoro-correlato, incendio, ecc.
-• Target caratteri: tra 85 e 105. Se un solo rischio non basta per raggiungere 85 caratteri, sviluppalo meglio.
+• Elenca 2 rischi separati da " ; ". OGNI SINGOLO ELEMENTO (prima e dopo il " ; ") deve essere MINIMO 40 caratteri e MASSIMO 52 caratteri, così che i due sommati raggiungano 85-105 totali.
+• Formula OBBLIGATORIA per OGNI elemento: [categoria rischio D.Lgs.81/08] + [meccanismo specifico] + [danno potenziale con gravità].
+  ✗ SBAGLIATO: "spinta carico pesante con lombalgie" (35 car — ERRORE: troppo corto)
+  ✗ SBAGLIATO: "pallet instabile schiaccia piedi" (31 car — ERRORE: troppo corto)
+  ✓ GIUSTO elemento 1: "Rischio MMC: spinta manuale >500 kg su timone causa sovraccarico lombare" (71 car — ✓ poi il secondo va da 14 a 34 car per raggiungere 85-105 totali)
+  Meglio ancora — usa un solo rischio sviluppato se non riesci a tenere entrambi sopra 40 car:
+  ✓ ESEMPIO CELLA COMPLETA: "Rischio MMC da spinta transpallet carico: sovraccarico rachide lombare e possibili ernie discali L4-L5 ; Rischio meccanico: caduta pallet instabile su arti inferiori con fratture metatarsali"
+• Se UN SOLO rischio è già 85+ car, non aggiungere il secondo: una frase ricca vale più di due frammenti corti.
+• Tipi di rischio: meccanico, elettrico, chimico, ergonomico, biologico, caduta dall'alto, investimento, MMC, rumore, vibrazioni, stress lavoro-correlato, incendio.
+• Target cella: 85-105 caratteri totali.
 
 COLONNA 3 — "controlli" (Metodi per i controlli / misure preventive):
-• Elenca 2 misure preventive COMPLETE separate da " ; ". Ogni misura deve essere una frase compiuta.
-• Formula OBBLIGATORIA: [cosa fare/indossare/verificare] + [con quale standard/norma/strumento] + [chi è responsabile o quando].
-  ✗ SBAGLIATO: "Scarpe S3 SRC e guanti EN388" (28 car — troppo corto, inaccettabile)
-  ✓ GIUSTO: "DPI obbligatori: scarpe antinfortunistiche S3 SRC EN ISO 20345 e guanti da lavoro EN 388 categoria II" (100 car)
-  ✗ SBAGLIATO: "Verifica stabilità pallet" (24 car — troppo corto, inaccettabile)
-  ✓ GIUSTO: "Verifica pre-operativa: controllo stabilità pallet, portata max transpallet (2500 kg) e stato forche" (99 car)
-• Specifica sempre: norma EN/ISO, categoria DPI, chi esegue il controllo (preposto, RSPP, lavoratore), frequenza.
-• Target caratteri: tra 85 e 105.
+• Elenca 2 misure separate da " ; ". OGNI SINGOLO ELEMENTO deve essere MINIMO 40 caratteri e MASSIMO 52 caratteri.
+• Formula OBBLIGATORIA per OGNI elemento: [azione specifica o DPI] + [norma EN/ISO o procedura] + [chi lo esegue e quando].
+  ✗ SBAGLIATO: "Scarpe S3 SRC e guanti EN388" (28 car — ERRORE: troppo corto)
+  ✗ SBAGLIATO: "Controllo portata e forche prima uso, preposto" (46 car — ERRORE: vago, manca norma)
+  ✓ ESEMPIO elemento 1: "Scarpe antinf. S3 SRC EN ISO 20345 e guanti da lavoro EN 388 cat. II, lavoratore" (80 car ✓)
+  ✓ ESEMPIO CELLA COMPLETA: "DPI: scarpe antinf. S3 SRC EN ISO 20345 e guanti da lavoro EN 388 cat. II obbligatori ; Verifica pre-uso portata, stato forche e ruote: scheda ispezione giornaliera, preposto"
+• Se UNA SOLA misura è già 85+ car, non aggiungere la seconda: una misura precisa vale più di due vaghe.
+• Specifica sempre: norma EN/ISO, categoria DPI, chi esegue (preposto, RSPP, lavoratore), frequenza.
+• Target cella: 85-105 caratteri totali.
 
 ════════════════════════════════
 STRUTTURA E NUMERO DELLE RIGHE
@@ -1283,7 +1286,14 @@ Genera SEMPRE almeno 6 righe (salvo istruzioni speciali che impongono un numero 
 REGOLA ASSOLUTA DI DENSITÀ
 ════════════════════════
 
-OGNI cella deve contenere tra 85 e 105 caratteri. Questo non è un suggerimento: è un requisito tecnico perché il testo deve riempire le caselle del modulo PDF. Una cella con meno di 85 caratteri è un ERRORE. Prima di restituire il JSON, conta i caratteri di ogni cella e, se sotto 85, espandi il testo aggiungendo dettagli tecnici, norme, strumenti, contesto.
+OGNI cella deve contenere tra 85 e 105 caratteri TOTALI. Questo non è un suggerimento: è un requisito tecnico perché il testo deve riempire le caselle del modulo PDF.
+
+REGOLA AGGIUNTIVA CRITICA — ogni singolo elemento separato da " ; " deve essere MINIMO 40 caratteri da solo. Non raggiungi il target sommando due elementi troppo corti: "A breve ; B breve" con A=30 e B=30 = 63 totali, SBAGLIATO anche se sommati superano 60. Ogni pezzo deve stare in piedi da solo.
+
+Prima di restituire il JSON, per ogni cella:
+1. Conta i caratteri totali → deve essere 85-105
+2. Conta i caratteri di ogni elemento (prima e dopo " ; ") → ciascuno deve essere ≥40
+3. Se sotto soglia: espandi aggiungendo dettagli (norma specifica, peso/misura, danno preciso, chi/quando)
 
 ════════════════════
 LIMITI DI CARATTERI
