@@ -9,66 +9,63 @@
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-/* ═══ Claymorphism — Indigo + Peach on Warm Cream ═══ */
+/* ═══ Volunteer Green — Forest + Sage ═══ */
 :root {
-  /* Surface */
-  --md-background:      oklch(94% 0.026 75);
-  --md-surface:         oklch(98.5% 0.008 75);
-  --md-surface-raised:  oklch(99.5% 0.005 75);
-  --md-surface-soft:    oklch(96.5% 0.018 75);
-  --md-surface-variant: oklch(93.5% 0.028 75);
+  /* Surface — green-tinted canvas, no stark white */
+  --md-background:      oklch(93.5% 0.028 150);
+  --md-surface:         oklch(97% 0.020 150);
+  --md-surface-raised:  oklch(98.5% 0.012 150);
+  --md-surface-soft:    oklch(95.5% 0.026 150);
+  --md-surface-variant: oklch(91.5% 0.034 150);
 
-  /* Primary — vivid indigo */
-  --md-primary:              oklch(53% 0.195 264);
-  --md-on-primary:           oklch(99% 0.005 264);
-  --md-primary-container:    oklch(88% 0.085 264);
-  --md-on-primary-container: oklch(26% 0.145 264);
+  /* Primary — forest green */
+  --md-primary:              oklch(48% 0.148 155);
+  --md-on-primary:           oklch(99% 0.005 155);
+  --md-primary-container:    oklch(91% 0.056 152);
+  --md-on-primary-container: oklch(22% 0.100 155);
 
-  /* Secondary — warm peach */
-  --md-secondary:              oklch(62% 0.165 35);
-  --md-on-secondary:           oklch(99% 0.005 35);
-  --md-secondary-container:    oklch(91.5% 0.072 35);
-  --md-on-secondary-container: oklch(30%  0.130 35);
+  /* Secondary — sage green support */
+  --md-secondary:              oklch(54% 0.068 150);
+  --md-on-secondary:           oklch(99% 0.005 150);
+  --md-secondary-container:    oklch(91% 0.034 150);
+  --md-on-secondary-container: oklch(26% 0.048 150);
 
-  /* Text */
-  --md-on-surface: oklch(20% 0.022 264);
-  --md-on-sv:      oklch(50% 0.036 264);
+  /* Text — dark green ink */
+  --md-on-surface: oklch(14% 0.022 155);
+  --md-on-sv:      oklch(46% 0.036 152);
 
   /* Borders */
-  --md-outline:         oklch(77% 0.040 264);
-  --md-outline-variant: oklch(89% 0.026 264);
+  --md-outline:         oklch(70% 0.036 150);
+  --md-outline-variant: oklch(85% 0.024 150);
 
   /* Feedback */
   --md-error:              oklch(52% 0.200 26);
-  --md-error-container:    oklch(92% 0.070 26);
+  --md-error-container:    oklch(93% 0.058 26);
   --md-on-error-container: oklch(28% 0.140 26);
-  --md-warning-container:    oklch(93.5% 0.072 78);
-  --md-on-warning-container: oklch(30%   0.110 78);
+  --md-warning-container:    oklch(93.5% 0.058 72);
+  --md-on-warning-container: oklch(30%   0.090 72);
 
-  /* Clay shadow system — inset top highlight + colored ambient drop */
+  /* Paper elevation — hairline border + ambient shadow */
   --elev-1:
-    inset 0 1.5px 0 oklch(100% 0 0 / 0.62),
-    0 4px 12px oklch(53% 0.195 264 / 0.13),
-    0 1px 4px  oklch(20% 0.022 264 / 0.08);
+    0 0 0 1px var(--md-outline-variant),
+    0 1px 4px oklch(14% 0.022 155 / 0.07);
 
   --elev-2:
-    inset 0 2px 0   oklch(100% 0 0 / 0.68),
-    inset 0 -1px 0  oklch(20% 0.022 264 / 0.06),
-    0 8px 24px  oklch(53% 0.195 264 / 0.18),
-    0 3px 8px   oklch(20% 0.022 264 / 0.10);
+    0 0 0 1px var(--md-outline-variant),
+    0 4px 14px oklch(14% 0.022 155 / 0.10),
+    0 1px 3px  oklch(14% 0.022 155 / 0.06);
 
   --elev-3:
-    inset 0 2.5px 0  oklch(100% 0 0 / 0.72),
-    inset 0 -1.5px 0 oklch(20% 0.022 264 / 0.08),
-    0 16px 42px oklch(53% 0.195 264 / 0.22),
-    0 6px 16px  oklch(20% 0.022 264 / 0.12);
+    0 0 0 1px var(--md-outline-variant),
+    0 8px 28px oklch(14% 0.022 155 / 0.13),
+    0 3px 8px  oklch(14% 0.022 155 / 0.08);
 
-  /* Shape scale — fat radii */
-  --shape-xs:  8px;
-  --shape-sm:  14px;
-  --shape-md:  22px;
-  --shape-lg:  30px;
-  --shape-xl:  42px;
+  /* Shape scale */
+  --shape-xs:  5px;
+  --shape-sm:  10px;
+  --shape-md:  16px;
+  --shape-lg:  22px;
+  --shape-xl:  32px;
   --shape-full: 9999px;
 
   /* Motion */
@@ -88,16 +85,16 @@ body {
   font-feature-settings: "kern" 1, "liga" 1;
   background: var(--md-background);
   background-image:
-    radial-gradient(ellipse 75% 48% at 12% -8%,  oklch(88% 0.085 264 / 0.55) 0%, transparent 58%),
-    radial-gradient(ellipse 58% 42% at 92% 108%, oklch(91.5% 0.072 35 / 0.48) 0%, transparent 56%);
+    radial-gradient(ellipse 80% 52% at 15% -10%,  oklch(91% 0.056 152 / 0.45) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 45% at 90% 108%,  oklch(91.5% 0.034 150 / 0.35) 0%, transparent 52%);
   color: var(--md-on-surface);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
 /* ── TYPE SCALE ── */
-.display-sm  { font-size: 2.25rem; font-weight: 800; line-height: 2.75rem; letter-spacing: -0.030em; }
-.headline-md { font-size: 1.75rem; font-weight: 800; line-height: 2.25rem; letter-spacing: -0.022em; }
+.display-sm  { font-size: 2.25rem; font-weight: 900; line-height: 2.75rem; letter-spacing: -0.032em; }
+.headline-md { font-size: 1.75rem; font-weight: 900; line-height: 2.25rem; letter-spacing: -0.026em; }
 .title-lg    { font-size: 1.375rem; font-weight: 700; line-height: 1.75rem; letter-spacing: -0.014em; }
 .title-md    { font-size: 1rem;    font-weight: 700; line-height: 1.5rem;  letter-spacing: -0.006em; }
 .label-lg    { font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; letter-spacing: 0.004em; }
@@ -112,19 +109,17 @@ body {
 /* ── TOP APP BAR ── */
 .app-bar {
   position: sticky; top: 0; z-index: 10;
-  background: oklch(98.5% 0.008 75 / 0.88);
-  backdrop-filter: blur(18px);
-  border-bottom: 1.5px solid var(--md-outline-variant);
+  background: oklch(98.5% 0.009 78 / 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--md-outline-variant);
   padding: 0 22px;
   height: 64px;
   display: flex; align-items: center; gap: 12px;
-  box-shadow:
-    inset 0 -1px 0 oklch(100% 0 0 / 0.35),
-    0 4px 18px oklch(53% 0.195 264 / 0.08);
+  box-shadow: 0 1px 0 var(--md-outline-variant), 0 2px 8px oklch(16% 0.016 78 / 0.05);
 }
 .app-bar-title {
-  font-size: 1.375rem; font-weight: 800;
-  letter-spacing: -0.022em; color: var(--md-on-surface);
+  font-size: 1.1rem; font-weight: 700;
+  letter-spacing: -0.010em; color: var(--md-on-surface);
 }
 .app-bar-spacer { flex: 1; }
 
@@ -227,10 +222,9 @@ body {
   transform: translateY(-3px) scale(1.02);
   filter: brightness(1.08);
   box-shadow:
-    inset 0 2.5px 0 oklch(100% 0 0 / 0.72),
-    inset 0 -2px 0  oklch(20% 0.022 264 / 0.08),
-    0 24px 58px oklch(53% 0.195 264 / 0.32),
-    0 8px 22px  oklch(20% 0.022 264 / 0.14);
+    0 0 0 1px oklch(48% 0.148 155 / 0.28),
+    0 20px 48px oklch(48% 0.148 155 / 0.24),
+    0 6px 18px  oklch(16% 0.016 78 / 0.14);
 }
 .fab:active { transform: scale(0.97) translateY(1px); }
 .fab-icon { font-size: 1rem; display: inline-flex; }
@@ -250,21 +244,21 @@ body {
 
 /* ── SCHEDA LIST ITEM ── */
 .scheda-item {
-  background: var(--md-surface-raised);
-  border: 1.5px solid var(--md-outline-variant);
+  background: var(--md-surface-soft);
+  border: 1px solid var(--md-outline-variant);
   border-radius: var(--shape-md);
-  box-shadow: var(--elev-1);
   overflow: hidden;
-  transition: box-shadow var(--dur-med) var(--motion-std),
-              transform   var(--dur-med) var(--motion-std);
-  margin-bottom: 12px;
+  transition: background var(--dur-short) var(--motion-std),
+              border-color var(--dur-short) var(--motion-std);
+  margin-bottom: 8px;
 }
-.scheda-item:hover { box-shadow: var(--elev-2); transform: translateY(-2px); }
-
-/* Side accent collapsed — card surface carries the identity */
+.scheda-item:hover {
+  background: var(--md-surface);
+  border-color: var(--md-outline);
+}
 
 .scheda-body {
-  padding: 18px 20px 14px;
+  padding: 14px 18px 12px;
 }
 
 .scheda-row-top {
@@ -282,8 +276,7 @@ body {
 
 .scheda-row-foot {
   display: flex; align-items: center; justify-content: space-between;
-  border-top: 1px solid var(--md-outline-variant);
-  padding-top: 10px;
+  padding-top: 8px;
 }
 
 .scheda-date {
@@ -292,61 +285,57 @@ body {
   letter-spacing: 0.018em;
 }
 .scheda-name {
-  font-size: 1rem; font-weight: 700;
+  font-size: 0.95rem; font-weight: 700;
   color: var(--md-on-surface);
-  letter-spacing: -0.012em;
+  letter-spacing: -0.010em;
   flex: 1; min-width: 0;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .scheda-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .chip {
   display: inline-flex; align-items: center;
-  background: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
-  border-radius: var(--shape-full);
-  padding: 3px 12px;
-  font-size: 0.73rem; font-weight: 600;
+  background: var(--md-surface-variant);
+  color: var(--md-on-sv);
+  border-radius: var(--shape-xs);
+  padding: 2px 8px;
+  font-size: 0.70rem; font-weight: 600;
+  letter-spacing: 0.01em;
 }
 .scheda-actions {
-  display: flex; gap: 4px; align-items: center;
+  display: flex; gap: 6px; align-items: center;
 }
 .scheda-action {
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   display: inline-flex; align-items: center; justify-content: center;
   border: 1.5px solid var(--md-outline-variant);
-  background: var(--md-surface-soft);
+  background: var(--md-surface-raised);
   color: var(--md-on-sv);
-  border-radius: var(--shape-full);
+  border-radius: var(--shape-sm);
   cursor: pointer;
-  font-size: 0.9rem;
-  box-shadow: var(--elev-1);
+  font-size: 0.92rem;
   transition:
-    background   var(--dur-short) var(--motion-std),
-    border-color var(--dur-short) var(--motion-std),
-    color        var(--dur-short) var(--motion-std),
-    transform    var(--dur-short) var(--motion-std),
-    box-shadow   var(--dur-short) var(--motion-std);
+    background    var(--dur-short) var(--motion-std),
+    border-color  var(--dur-short) var(--motion-std),
+    color         var(--dur-short) var(--motion-std);
   font-family: inherit;
 }
 .scheda-action:hover {
-  background: var(--md-secondary-container);
-  border-color: transparent;
-  color: var(--md-on-secondary-container);
-  box-shadow: var(--elev-2);
-  transform: translateY(-2px) scale(1.08);
+  background: var(--md-surface-variant);
+  border-color: var(--md-outline);
+  color: var(--md-on-surface);
 }
-.scheda-action:active { transform: scale(0.90); }
-.scheda-action:focus-visible { outline: 3px solid var(--md-primary); outline-offset: 2px; }
+.scheda-action:active { opacity: 0.75; }
+.scheda-action:focus-visible { outline: 2px solid var(--md-primary); outline-offset: 2px; }
 .scheda-action-print {
+  border-color: oklch(70% 0.080 152);
   background: var(--md-primary-container);
-  border-color: transparent;
   color: var(--md-on-primary-container);
 }
 .scheda-action-print:hover {
+  border-color: transparent;
   background: var(--md-primary);
   color: var(--md-on-primary);
 }
-.scheda-action-delete { color: var(--md-error); }
 .scheda-action-delete:hover {
   background: var(--md-error-container);
   border-color: transparent;
@@ -384,54 +373,48 @@ body {
 .step-card {
   background: var(--md-surface-raised);
   border-radius: var(--shape-lg);
-  box-shadow: var(--elev-2);
-  margin-bottom: 22px;
+  box-shadow: var(--elev-1);
+  margin-bottom: 20px;
   overflow: hidden;
-  border: 1.5px solid var(--md-outline-variant);
+  border: 1px solid var(--md-outline-variant);
 }
 .step-header {
-  background: var(--md-primary);
-  color: var(--md-on-primary);
-  padding: 18px 26px;
-  display: flex; align-items: center; gap: 14px;
-  position: relative;
-}
-.step-header::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 1.5px;
-  background: oklch(100% 0 0 / 0.22);
-  pointer-events: none;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  padding: 15px 22px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid oklch(70% 0.060 152 / 0.35);
 }
 .step-num {
-  width: 32px; height: 32px;
-  background: oklch(100% 0 0 / 0.22);
+  padding: 3px 9px;
+  background: var(--md-primary);
   color: var(--md-on-primary);
-  border-radius: var(--shape-full);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; font-weight: 800;
+  border-radius: var(--shape-xs);
+  font-size: 0.70rem; font-weight: 800;
+  letter-spacing: 0.04em;
   flex-shrink: 0;
+  line-height: 1.4;
 }
-.step-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.010em; }
-.step-body { padding: 26px; }
+.step-title { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.008em; }
+.step-body { padding: 24px 26px; }
 
 /* ── TEXT FIELDS (full-border, rounded) ── */
 .field { margin-bottom: 20px; }
 .field:last-child { margin-bottom: 0; }
 .field-label {
   display: block;
-  font-size: 0.72rem; font-weight: 700;
+  font-size: 0.73rem; font-weight: 700;
   color: var(--md-on-sv);
-  letter-spacing: 0.060em;
+  letter-spacing: 0.030em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .field-input, .field-textarea {
   width: 100%;
   background: var(--md-surface-soft);
-  border: 2px solid var(--md-outline-variant);
-  border-radius: var(--shape-md);
-  padding: 13px 18px;
+  border: 1.5px solid var(--md-outline-variant);
+  border-radius: var(--shape-sm);
+  padding: 12px 16px;
   font-family: inherit; font-size: 0.92rem;
   color: var(--md-on-surface);
   transition: border-color var(--dur-short) var(--motion-std),
@@ -445,8 +428,8 @@ body {
 }
 .field-input:focus, .field-textarea:focus {
   border-color: var(--md-primary);
-  background: var(--md-surface);
-  box-shadow: 0 0 0 4px oklch(53% 0.195 264 / 0.13);
+  background: var(--md-surface-raised);
+  box-shadow: 0 0 0 3px oklch(48% 0.148 155 / 0.16);
 }
 .field-input::placeholder, .field-textarea::placeholder {
   color: var(--md-on-sv); opacity: 0.60;
@@ -457,15 +440,15 @@ body {
 /* ── PROMPT BOX ── */
 .prompt-box {
   background: var(--md-surface-variant);
-  border-radius: var(--shape-md);
-  padding: 18px 20px;
-  font-size: 0.85rem; font-family: inherit;
-  line-height: 1.72; color: var(--md-on-sv);
+  border-radius: var(--shape-sm);
+  padding: 16px 18px;
+  font-size: 0.84rem; font-family: inherit;
+  line-height: 1.78; color: var(--md-on-surface);
   white-space: pre-wrap;
-  max-height: 200px; overflow-y: auto;
-  margin-bottom: 14px;
-  border: 1.5px solid var(--md-outline-variant);
-  box-shadow: var(--elev-1);
+  max-height: 220px; overflow-y: auto;
+  margin-bottom: 16px;
+  border: 1px solid var(--md-outline-variant);
+  border-top: 3px solid var(--md-primary);
 }
 
 /* ── MESSAGES ── */
@@ -604,6 +587,60 @@ body {
 .dc85-foot-cell .line { height: 18px; border-bottom: 1px solid #bbb; margin-top: 5px; }
 .dc85-pager { text-align: right; font-size: 7pt; color: #888; padding: 4px 8px; border-top: 1px solid #ddd; }
 
+/* ── APP BAR BRAND / LOGO ── */
+.app-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  user-select: none;
+}
+.app-bar-code {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--md-on-surface);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.app-bar-num {
+  font-family: 'Figtree', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--md-on-primary);
+  background: var(--md-primary);
+  border-radius: 5px;
+  padding: 3px 8px 4px;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+/* ── HOME HEADER ── */
+.home-header {
+  background: var(--md-primary-container);
+  border-radius: var(--shape-lg);
+  padding: 28px 26px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.home-title {
+  font-size: 1.625rem;
+  font-weight: 900;
+  color: var(--md-on-primary-container);
+  letter-spacing: -0.032em;
+  line-height: 1.15;
+}
+.home-sub {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--md-on-primary-container);
+  opacity: 0.65;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  padding-bottom: 3px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .page-content { padding: 18px 14px 104px; }
@@ -654,7 +691,7 @@ body {
 }
 .snackbar-action {
   background: none; border: none; cursor: pointer;
-  color: oklch(88% 0.085 264);
+  color: oklch(88% 0.055 68);
   font-family: inherit; font-size: 0.875rem; font-weight: 700;
   padding: 0; letter-spacing: 0.01em;
   text-decoration: underline; text-underline-offset: 2px;
