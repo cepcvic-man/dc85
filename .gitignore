@@ -1,0 +1,26 @@
+# Local editor and agent state
+.claude/*.local.json
+.impeccable/
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+.cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
