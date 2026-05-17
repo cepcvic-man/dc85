@@ -1066,9 +1066,9 @@ async function dbGet(id) {
 let cur = null;
 const PDF_FIELD_LIMITS = {
   descrizione: 70,
-  attivita: 105,
-  rischi: 105,
-  controlli: 105
+  attivita: 210,
+  rischi: 210,
+  controlli: 210
 };
 
 // ─── NAV ───────────────────────────────────
@@ -1230,7 +1230,7 @@ function mkPrompt(att, note) {
 ${extra}
 Tre colonne per ogni riga: SEQUENZA ATTIVITÀ | RISCHI | METODI DI CONTROLLO.
 
-OGNI CELLA deve essere una frase tecnica densa tra 90 e 105 caratteri. Corto e generico = inaccettabile.
+OGNI CELLA deve essere una frase tecnica densa tra 170 e 210 caratteri. Corto e generico = inaccettabile.
 
 "attivita": descrivi cosa si fa, con quale attrezzatura, in quale contesto (luogo, modalità, addetti coinvolti).
 "rischi": cita la categoria di rischio D.Lgs.81/08, il meccanismo preciso di accadimento e il danno potenziale con conseguenze fisiche specifiche.
@@ -1239,24 +1239,24 @@ OGNI CELLA deve essere una frase tecnica densa tra 90 e 105 caratteri. Corto e g
 ESEMPI che mostrano il livello di dettaglio richiesto:
 
 "attivita"
-  ✗ CORTO: "Carico pallet con transpallet in magazzino" (42 car)
-  ✓ DENSO: "Carico pallet su transpallet manuale: inserimento forche centrate, sollevamento a 15 cm con pompaggio timone, trasporto a passo d'uomo" (133 car — tronca a 105 se necessario)
+  ✗ CORTO: "Carico pallet con transpallet in magazzino" (42 car — inaccettabile)
+  ✓ DENSO (195 car): "Carico pallet con transpallet manuale: verificare stabilità bancale e centrare le forche, pompare il timone fino a 15 cm da terra, avanzare a passo d'uomo lungo il percorso segnalato verso area di stoccaggio"
 
 "rischi"
-  ✗ CORTO: "Rischio MMC: spinta su timone causa lombalgie acute" (51 car)
-  ✓ DENSO: "Rischio da MMC (art.168): spinta transpallet >2500 kg provoca sovraccarico rachide lombare, ernie discali L4-L5 e cervicalgia cronica" (131 car — tronca a 105 se necessario)
+  ✗ CORTO: "Rischio MMC: spinta su timone causa lombalgie" (46 car — inaccettabile)
+  ✓ DENSO (205 car): "Rischio da MMC (art.168 D.Lgs.81/08): spinta e traino ripetuto del transpallet a pieno carico (fino a 2500 kg) provoca sovraccarico biomeccanico del rachide lombare con possibili ernie discali L4-L5 e lombalgia cronica"
 
 "controlli"
-  ✗ CORTO: "Scarpe S3 SRC EN ISO 20345 e guanti EN 388, lavoratore" (54 car)
-  ✓ DENSO: "DPI obbligatori ogni operazione: scarpe antinf. S3 SRC EN ISO 20345, guanti da lavoro EN 388 liv.4, gilet rifl. EN ISO 20471 cl.2" (128 car — tronca a 105 se necessario)
+  ✗ CORTO: "Scarpe S3 SRC e guanti EN 388, lavoratore" (42 car — inaccettabile)
+  ✓ DENSO (208 car): "DPI obbligatori per tutta la durata dell'operazione: scarpe antinfortunistiche S3 SRC EN ISO 20345, guanti da lavoro EN 388 categoria II, gilet ad alta visibilità EN ISO 20471 classe 2 se l'area prevede transito mezzi"
 
 Genera almeno 6 righe (salvo istruzioni speciali). Copri: preparazione e verifica DPI, allestimento area, fasi operative principali, gestione anomalie, ripristino e documentazione.
 
 Limiti assoluti (testo inserito in caselle PDF di dimensione fissa — non superare mai):
 - "descrizione": max ${PDF_FIELD_LIMITS.descrizione} car
-- "attivita": 90-${PDF_FIELD_LIMITS.attivita} car
-- "rischi": 90-${PDF_FIELD_LIMITS.rischi} car
-- "controlli": 90-${PDF_FIELD_LIMITS.controlli} car
+- "attivita": 170-${PDF_FIELD_LIMITS.attivita} car
+- "rischi": 170-${PDF_FIELD_LIMITS.rischi} car
+- "controlli": 170-${PDF_FIELD_LIMITS.controlli} car
 
 Niente ritorni a capo nelle celle. Italiano tecnico normativo.
 Rispondi SOLO con JSON valido, zero testo fuori dal blocco:
@@ -1265,9 +1265,9 @@ Rispondi SOLO con JSON valido, zero testo fuori dal blocco:
   "descrizione": "titolo sintetico max ${PDF_FIELD_LIMITS.descrizione} car",
   "righe": [
     {
-      "attivita": "90-105 car: azione operativa + attrezzatura + modalità + contesto",
-      "rischi": "90-105 car: categoria rischio D.Lgs.81/08 + meccanismo preciso + danno fisico specifico con conseguenze",
-      "controlli": "90-105 car: DPI con norma EN/ISO + procedura con standard + responsabile + frequenza"
+      "attivita": "170-210 car: azione operativa dettagliata + attrezzatura specifica + modalità + contesto (luogo, addetti, percorso)",
+      "rischi": "170-210 car: categoria rischio D.Lgs.81/08 + meccanismo preciso di accadimento + danno fisico specifico con conseguenze cliniche",
+      "controlli": "170-210 car: DPI specifici con norma EN/ISO e categoria + procedura operativa con standard + responsabile + frequenza"
     }
   ]
 }`;
