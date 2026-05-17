@@ -1226,38 +1226,76 @@ function mkPrompt(att, note) {
     ? `\nIstruzioni speciali da rispettare:\n${note}\n`
     : '';
 
-  return `Devi aiutarmi a compilare una scheda di sicurezza sul lavoro.
+  return `Sei un esperto di sicurezza sul lavoro (RSPP) con esperienza nella redazione di documenti di valutazione dei rischi secondo il D.Lgs. 81/2008. Devi compilare la griglia di una scheda DC-85 per la seguente attività:
+
 Attività da analizzare: "${att}"
 ${extra}
+La griglia ha tre colonne: SEQUENZA DELLE ATTIVITÀ | RISCHI | METODI PER I CONTROLLI.
+Ogni riga rappresenta una fase distinta dell'attività, analizzata in profondità.
 
-Rispondi SOLO con un blocco JSON valido, senza nessun altro testo prima o dopo. La struttura deve essere esattamente questa:
+════════════════════════════════════════
+ISTRUZIONI DETTAGLIATE PER OGNI COLONNA
+════════════════════════════════════════
+
+COLONNA 1 — "attivita" (Sequenza delle attività):
+• Descrivi COSA si fa in quella fase, CON QUALI STRUMENTI, IN QUALE CONTESTO.
+• Sii operativo: non scrivere "Preparazione" ma "Verifica dell'area di lavoro: rimozione ostacoli, controllo pavimentazione e adeguatezza illuminazione artificiale".
+• Includi: strumenti usati, modalità operative, numero di addetti se rilevante, ambiente (interno/esterno, quota, spazio confinato).
+• Limite: massimo ${PDF_FIELD_LIMITS.attivita} caratteri. Punta a usare 85-105 caratteri (mai meno di 70).
+
+COLONNA 2 — "rischi" (Rischi specifici della fase):
+• Elenca 2-4 rischi CONCRETI e SPECIFICI separati da " ; ".
+• Per ogni rischio indica: il pericolo + la natura del danno potenziale (es. "Rischio di scivolamento su pavimento bagnato con possibile frattura agli arti inferiori").
+• Classifica i rischi usando terminologia tecnica D.Lgs. 81/08: rischio meccanico, elettrico, chimico, ergonomico, biologico, da caduta dall'alto, da investimento, da movimentazione manuale dei carichi (MMC), da rumore/vibrazioni, da agenti cancerogeni, stress lavoro-correlato, ecc.
+• NON scrivere solo "Rischio caduta" — scrivi "Caduta dall'alto dalla scala portatile con rischio di trauma cranico e fratture".
+• Limite: massimo ${PDF_FIELD_LIMITS.rischi} caratteri. Punta a usare 85-105 caratteri.
+
+COLONNA 3 — "controlli" (Metodi per i controlli / misure preventive):
+• Elenca 2-4 misure preventive PRECISE e APPLICABILI separate da " ; ".
+• Specifica DPI esatti (es. "guanti in nitrile EN 374", "otoprotettori SNR 28 dB", "scarpe antinfortunistiche S3 SRC"), non generici.
+• Includi: procedure operative (verifiche pre-uso, blocco energia LOTO, permessi di lavoro), formazione specifica richiesta, sorveglianza sanitaria, segnaletica da installare, distanze di sicurezza, strumenti di misurazione.
+• Indica anche il responsabile del controllo se rilevante (preposto, RSPP, MC).
+• Limite: massimo ${PDF_FIELD_LIMITS.controlli} caratteri. Punta a usare 85-105 caratteri.
+
+════════════════════════════════
+STRUTTURA E NUMERO DELLE RIGHE
+════════════════════════════════
+
+Genera SEMPRE almeno 6 righe, preferibilmente 7-8 per attività complesse. Segui questo schema logico:
+1. Fase preparatoria (verifica attrezzature, DPI, area di lavoro)
+2. Allestimento/messa in sicurezza dell'area
+3. Prima operazione principale
+4. Seconda operazione principale (o continuazione)
+5. Eventuali operazioni accessorie o critiche (uso sostanze, lavori in quota, ecc.)
+6. Gestione emergenze/anomalie (se pertinente)
+7. Conclusione e ripristino dell'area
+8. Smaltimento rifiuti/materiali e documentazione (se pertinente)
+
+════════════════════
+LIMITI DI CARATTERI
+════════════════════
+
+Rispetta SEMPRE questi limiti (il testo viene inserito in caselle PDF di dimensione fissa):
+- "descrizione": massimo ${PDF_FIELD_LIMITS.descrizione} caratteri (titolo sintetico dell'attività)
+- "attivita": massimo ${PDF_FIELD_LIMITS.attivita} caratteri per riga
+- "rischi": massimo ${PDF_FIELD_LIMITS.rischi} caratteri per riga
+- "controlli": massimo ${PDF_FIELD_LIMITS.controlli} caratteri per riga
+
+NON usare ritorni a capo all'interno di una cella (il separatore tra elementi è " ; ").
+Scrivi in italiano tecnico, preciso e diretto. Usa terminologia normativa corretta.
+
+Rispondi SOLO con il blocco JSON qui sotto, senza testo aggiuntivo prima o dopo:
 
 {
   "descrizione": "titolo breve dell'attività",
   "righe": [
     {
-      "attivita": "descrizione della fase o operazione",
-      "rischi": "rischi specifici di questa fase",
-      "controlli": "misure preventive e di controllo da adottare"
+      "attivita": "descrizione operativa della fase con strumenti e modalità",
+      "rischi": "Rischio specifico 1 con danno potenziale ; Rischio specifico 2 con danno potenziale",
+      "controlli": "Misura preventiva 1 specifica ; Misura preventiva 2 con DPI o procedura esatta"
     }
   ]
-}
-
-Regole:
-- Elenca ogni fase separatamente (minimo 5, massimo 8 righe)
-- Rispetta questi limiti di caratteri per far stare il testo nelle caselle del PDF:
-  - "descrizione": massimo ${PDF_FIELD_LIMITS.descrizione} caratteri
-  - "attivita": massimo ${PDF_FIELD_LIMITS.attivita} caratteri per riga
-  - "rischi": massimo ${PDF_FIELD_LIMITS.rischi} caratteri per riga
-  - "controlli": massimo ${PDF_FIELD_LIMITS.controlli} caratteri per riga
-- DENSITÀ: ogni cella deve essere ricca e informativa. Punta a usare almeno l'80% dello spazio disponibile (es. ~85 caratteri su 105). Voci troppo brevi come "Indossare DPI" o "Rischio caduta" NON sono accettabili.
-- "attivita": descrivi la fase in modo operativo e specifico (cosa si fa, con quali strumenti o modalità)
-- "rischi": elenca 2-3 rischi concreti separati da punto e virgola, con la natura del danno potenziale
-- "controlli": indica 2-3 misure preventive precise e applicabili, separate da punto e virgola (DPI specifici, verifiche, procedure operative)
-- Non usare ritorni a capo all'interno di una cella
-- Copri tutte le fasi significative, comprese quelle preparatorie e conclusive
-- Scrivi in italiano tecnico, chiaro e diretto
-- Non aggiungere spiegazioni fuori dal JSON`;
+}`;
 }
 
 async function copiaPrompt() {
